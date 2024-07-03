@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import imageSrc from '../assets/wally-test.jpeg';
 
 const MainPage = () => {
     const [dragging, setDragging] = useState(false);
@@ -59,7 +60,7 @@ const MainPage = () => {
                 <h1>Find Wally / test</h1>
             </TextContainer>
             <StyledImage
-                src="wally-test.jpeg"
+                src={imageSrc}
                 useMap="#image-map"
                 alt="Wally"
                 draggable="false"
