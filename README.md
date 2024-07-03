@@ -8,7 +8,7 @@
 
 ## Overview
 
-This is a basic template for react app
+where-is-wally
 
 ### Built With
 
@@ -27,7 +27,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/init1-dev/react-basic-template.git
+$ git clone https://github.com/init1-dev/where-is-wally.git
 # install dependencies
 $ npm install
 # run project
@@ -38,7 +38,7 @@ $npm run dev
 
 
 ### TODO:
-
+- ADD image/container limits to prevent user moving outside image area
 
 ## Contact
 
