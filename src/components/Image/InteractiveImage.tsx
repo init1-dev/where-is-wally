@@ -1,9 +1,12 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
-import { IntectiveImageProps } from "../../interfaces/interfaces";
+import { Area, IntectiveImageProps } from "../../interfaces/interfaces";
+import { Alert } from "../../utils/alerts/customAlert";
 
 const IntectiveImage = ({
-    image
+    image,
+    imageAreas,
+    setImageAreas
 }: IntectiveImageProps) => {
     const [dragging, setDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -69,11 +72,35 @@ const IntectiveImage = ({
         handleEnd();
     };
 
+    const itemFound = (foundArea: Area) => {
+        console.log(foundArea.found);
+        
+        if(!foundArea.found){
+            Alert.fire({
+                icon: 'success',
+                title: 'Enhorabuena!',
+                html: `Encontraste: <i>${foundArea.description}</i>`,
+            })
+    
+            setImageAreas((prevAreas) =>
+                prevAreas.map((area) =>
+                    area.alt === foundArea.alt ? { ...area, found: true } : area
+                )
+            );
+        } else {
+            Alert.fire({
+                icon: 'warning',
+                title: 'Already found!',
+                showConfirmButton: true,
+            })
+        }
+    }
+
     return (
         <ImageContainer ref={containerRef}>
             <StyledImage
                 ref={imageRef}
-                src={image.image}
+                src={image}
                 useMap="#image-map"
                 alt="Wally"
                 draggable="false"
@@ -89,9 +116,15 @@ const IntectiveImage = ({
 
             <map name="image-map">
                 {
-                    image.areas.map((area, i) => {
-                        return <InteractiveArea key={i} alt={area.alt} coords={area.coords} shape={area.shape} onClick={() => alert('You found Wally, ¡Congrats!')} />
-                    })
+                    imageAreas.map((area, i) =>
+                        <InteractiveArea 
+                            key={i}
+                            alt={area.alt}
+                            coords={area.coords}
+                            shape={area.shape}
+                            onClick={ () => itemFound(area) }
+                        />
+                    )
                 }
             </map>
         </ImageContainer>
@@ -99,6 +132,7 @@ const IntectiveImage = ({
 }
 
 const ImageContainer = styled.div`
+    z-index: 0;
     width: 100vw;
     height: calc(100vh - 16px);
     overflow: hidden;

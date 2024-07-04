@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface Area {
     description: string;
     alt: string;
@@ -13,5 +15,7 @@ export interface Image {
 }
 
 export interface IntectiveImageProps {
-    image: Image;
+    image: string;
+    imageAreas: Area[];
+    setImageAreas: Dispatch<SetStateAction<Area[]>>
 }
