@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import imageSrc from '../assets/wally-test.jpeg';
 
@@ -6,6 +6,8 @@ const MainPage = () => {
     const [dragging, setDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
+    const imageRef = useRef<HTMLImageElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const handleStart = (clientX: number, clientY: number) => {
         setDragging(true);
@@ -17,10 +19,21 @@ const MainPage = () => {
 
     const handleMove = (clientX: number, clientY: number) => {
         if (dragging) {
-            setPosition({
-                x: clientX - startPosition.x,
-                y: clientY - startPosition.y
-            });
+            const container = containerRef.current;
+            const image = imageRef.current;
+
+            if (container && image) {
+                const newX = clientX - startPosition.x;
+                const newY = clientY - startPosition.y;
+
+                const maxX = container.offsetWidth - image.offsetWidth;
+                const maxY = container.offsetHeight - image.offsetHeight;
+
+                const boundedX = Math.min(0, Math.max(newX, maxX));
+                const boundedY = Math.min(0, Math.max(newY, maxY));
+
+                setPosition({ x: boundedX, y: boundedY });
+            }
         }
     };
 
@@ -55,11 +68,13 @@ const MainPage = () => {
     };
 
     return (
-        <ImageContainer>
+        <ImageContainer ref={containerRef}>
             <TextContainer>
                 <h1>Find Wally / test</h1>
             </TextContainer>
+
             <StyledImage
+                ref={imageRef}
                 src={imageSrc}
                 useMap="#image-map"
                 alt="Wally"
