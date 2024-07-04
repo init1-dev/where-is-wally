@@ -25,14 +25,20 @@ const LevelComponent = () => {
                     {
                         imageAreas.map((area, i) =>
                             <ListItem key={i}>
-                                <SmallText $found={area.found}>{area.description}</SmallText>
+                                <SmallText $found={area.found}>
+                                    {area.description}
+                                </SmallText>
                             </ListItem>
                         )
                     }
                 </List>
             </TextContainer>
         
-            <InteractiveImage image={image.image} imageAreas={imageAreas} setImageAreas={setImageAreas} />
+            <InteractiveImage 
+                image={image.image} 
+                imageAreas={imageAreas} 
+                setImageAreas={setImageAreas} 
+            />
         </MainPageContainer>
     );
 };
