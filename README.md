@@ -35,10 +35,11 @@ $npm run dev
 ```
 
 ## Next Updates
+- Side Panels: Settings (left) and current scenario achievements (right)
 
 
 ### TODO:
-- ADD image/container limits to prevent user moving outside image area
+- Test different Interactive locations and functionality with static data
 
 ## Contact
 
