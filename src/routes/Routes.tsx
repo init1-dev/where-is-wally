@@ -1,18 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter, redirect } from "react-router-dom";
 
 import Layout from "../components/Layout";
 
 import MainPage from "../pages/MainPage";
 import LevelComponent from "../pages/Level";
 
-export const appName = '/hotel-miranda-dashboard';
-
 const router = createBrowserRouter([
     {
         id: "root",
-        path: "/where-is-wally",
+        path: '/',
         Component: Layout,
         children: [
+            {
+                path: '/',
+                element: <Navigate to="/main" replace />
+            },
             {
                 path: "main",
                 Component: MainPage
@@ -23,7 +25,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "*",
-                Component: MainPage
+                async loader() {
+                    return redirect("/main");
+                }
             }
         ]
     }

@@ -12,7 +12,7 @@ const LevelComponent = () => {
         <MainPageContainer>
             <TextContainer>
                 <Title>
-                    <StyledButtonNoBg as={Link} to={'/where-is-wally/main'}>
+                    <StyledButtonNoBg as={Link} to={'/main'}>
                         <IoMdArrowBack style={{marginLeft:'1rem'}}/>
                     </StyledButtonNoBg>
 

@@ -17,7 +17,7 @@ const MainPage = () => {
 
             <p>Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, mi idea es seguir desarrollando y añadiendo todos los escenarios presentes en los libros homónimos.</p>
 
-            <StyledButton as={Link} to={"/where-is-wally/test"}>
+            <StyledButton as={Link} to={"/test"}>
                 Ir al nivel de prueba
             </StyledButton>
         </MainPageContainer>

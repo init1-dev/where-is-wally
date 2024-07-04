@@ -122,7 +122,7 @@ const IntectiveImage = ({
                 confirmButtonText: 'Volver'
             }).then((result) => {
                 if(result.isConfirmed){
-                    navigate('/where-is-wally/main')
+                    navigate('/main')
                 }
             })
         }
