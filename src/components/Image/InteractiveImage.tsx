@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Area, IntectiveImageProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
+import tada from '../../assets/tada.mp3';
+import clap from '../../assets/clap.mp3';
 
 const IntectiveImage = ({
     image,
@@ -72,15 +74,23 @@ const IntectiveImage = ({
         handleEnd();
     };
 
+    const PlaySound = (sound: string) => {
+        new Audio(sound).play();
+    }
+
+    const checkAllFound = () => {
+        return imageAreas.every(area => area.found);
+    };
+
     const itemFound = (foundArea: Area) => {
-        console.log(foundArea.found);
-        
         if(!foundArea.found){
             Alert.fire({
                 icon: 'success',
                 title: 'Enhorabuena!',
                 html: `Encontraste: <i>${foundArea.description}</i>`,
             })
+
+            PlaySound(tada);
     
             setImageAreas((prevAreas) =>
                 prevAreas.map((area) =>
@@ -95,6 +105,18 @@ const IntectiveImage = ({
             })
         }
     }
+
+    useEffect(() => {
+        if (checkAllFound()) {
+            PlaySound(clap);
+
+            Alert.fire({
+                icon: 'success',
+                title: 'Enhorabuena!',
+                html: `Encontraste todas las pistas`,
+            })
+        }
+    }, [imageAreas]);
 
     return (
         <ImageContainer ref={containerRef}>

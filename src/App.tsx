@@ -3,7 +3,8 @@ import './App.css';
 import { loadTheme, toggleTheme } from './utils/theme/themeUtils';
 import styled, { ThemeContext, ThemeProvider } from 'styled-components';
 import { GlobalStyles, darkTheme, lightTheme } from './utils/theme/themeConfig';
-import MainPage from './pages/MainPage';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/Routes';
 
 function App() {
   const [theme, setTheme] = useState(loadTheme);
@@ -18,8 +19,7 @@ function App() {
       <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
         <Wrapper>
           <GlobalStyles />
-          {/* <h1>where-is-wally / test</h1> */}
-          <MainPage />
+          <RouterProvider router={router} />
         </Wrapper>
       </ThemeProvider>
     </ThemeContext.Provider>
@@ -32,4 +32,4 @@ const Wrapper = styled.div`
   color: ${({ theme }) => theme.text};
 `;
 
-export default App
+export default App;

@@ -1,70 +1,39 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import InteractiveImage from "../components/Image/InteractiveImage";
-import { image } from "../utils/Image";
-import { useState } from "react";
 
 const MainPage = () => {
-    const [ imageAreas, setImageAreas ] = useState(image.areas);
-    // const foundImages = imageAreas.
-    // const completed = image.areas.length === imageAreas
+
 
     return (
         <MainPageContainer>
-            <TextContainer>
-                <Title>Where is Wally / test</Title>
+            <h2>¿Dónde está Wally? / test</h2>
 
-                <hr />
+            <p>Esto es una maqueta inicial de la aplicación que estoy desarrollando, basada en los libros de "¿Dónde está Wally? que tanto marcaron mi infancia.</p>
 
-                <List>
-                    {
-                        imageAreas.map((area, i) =>
-                            <ListItem key={i}>
-                                <SmallText $found={area.found}>{area.description}</SmallText>
-                            </ListItem>
-                        )
-                    }
-                </List>
-            </TextContainer>
-        
-            <InteractiveImage image={image.image} imageAreas={imageAreas} setImageAreas={setImageAreas} />
+            <p>Actualmente sólo existe un nivel en pruebas que está siendo desarrollado. </p>
+
+            <p>Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, mi idea es seguir desarrollando y añadiendo todos los escenarios presentes en los libros homónimos.</p>
+
+            <StyledButton as={Link} to={"/where-is-wally/test"}>
+                Ir al nivel de prueba
+            </StyledButton>
         </MainPageContainer>
     );
 };
 
 const MainPageContainer = styled.div`
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
-const TextContainer = styled.div`
-    max-width: 100%;
-    margin-right: 5px;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    z-index: 1;
-    background-color: white;
-    user-select: unset;
-    pointer-events: none;
+export const StyledButton = styled.button`
+    margin-top: 1rem;
     border-radius: 0.5rem;
-`;
-
-const Title = styled.h2`
-    margin: 0;
-    padding: 0;
-    color: black;
-`;
-
-const List = styled.ul`
-    margin: 1rem 1rem 1rem 0;
-    text-align: left;
-`;
-
-const ListItem = styled.li`
-    color: #5c5c5c;
-`;
-
-const SmallText = styled.small<{ $found: boolean }>`
-    text-decoration: ${props => (props.$found ? 'line-through' : '')};
+    padding: 0.5rem;
+    background-color: grey;
+    color: white;
+    text-decoration: unset;
 `;
 
 export default MainPage;
