@@ -4,6 +4,7 @@ import { Area, IntectiveImageProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
 import tada from '../../assets/tada.mp3';
 import clap from '../../assets/clap.mp3';
+import { useNavigate } from "react-router-dom";
 
 const IntectiveImage = ({
     image,
@@ -15,6 +16,7 @@ const IntectiveImage = ({
     const [startPosition, setStartPosition] = useState({ x: 0, y: 0 });
     const imageRef = useRef<HTMLImageElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     const handleStart = (clientX: number, clientY: number) => {
         setDragging(true);
@@ -114,6 +116,14 @@ const IntectiveImage = ({
                 icon: 'success',
                 title: 'Enhorabuena!',
                 html: `Encontraste todas las pistas`,
+                showCloseButton: false,
+                allowOutsideClick: false,
+                showConfirmButton: true,
+                confirmButtonText: 'Volver'
+            }).then((result) => {
+                if(result.isConfirmed){
+                    navigate('/where-is-wally/main')
+                }
             })
         }
     }, [imageAreas]);

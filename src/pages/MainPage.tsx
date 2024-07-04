@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import header from "../assets/wally_header.jpg";
 
 const MainPage = () => {
 
 
     return (
         <MainPageContainer>
-            <h2>¿Dónde está Wally? / test</h2>
+            <h2>¿Dónde está Wally?</h2>
+
+            <img src={header} alt="header-wally" style={{borderRadius:'0.5rem'}} />
 
             <p>Esto es una maqueta inicial de la aplicación que estoy desarrollando, basada en los libros de "¿Dónde está Wally? que tanto marcaron mi infancia.</p>
 
