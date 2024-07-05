@@ -101,8 +101,8 @@ const SmallText = styled.small<{ $found: boolean }>`
 const ToggleButton = styled(StyledCircleButton)<{ $isOpen: boolean }>`
     display: ${props => (props.$isOpen ? 'none' : 'flex')};
     position: absolute;
-    top: 20px;
-    right: 40px;
+    top: 15px;
+    right: 15px;
     z-index: 1;
 `;
 

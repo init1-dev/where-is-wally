@@ -77,7 +77,7 @@ const IntectiveImage = ({
 const ImageContainer = styled.div`
     z-index: 0;
     width: 100vw;
-    height: calc(100vh - 16px);
+    height: 100vh;
     overflow: hidden;
     position: relative;
 `;

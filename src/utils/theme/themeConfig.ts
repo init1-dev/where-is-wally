@@ -72,6 +72,10 @@ export const GlobalStyles = createGlobalStyle<{ theme?: Theme }>`
             60.6px 60px 95.9px -2.5px hsl(var(--shadow-color) / 0.08);
     }
 
+    body {
+        margin: 0;
+    }
+
     .loader {
         aspect-ratio: 1;
         border-radius: 50%;

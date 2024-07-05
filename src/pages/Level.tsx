@@ -46,8 +46,8 @@ const MainPageContainer = styled.div`
 
 const TextContainer = styled.div`
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 15px;
     z-index: 1;
     user-select: unset;
     border-radius: 0.5rem;
