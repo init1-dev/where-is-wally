@@ -40,7 +40,6 @@ $npm run dev
 
 ### TODO:
 - Test different Interactive locations and functionality with static data
-- FIX: return button position behind sidebar menu
 
 ## Contact
 
