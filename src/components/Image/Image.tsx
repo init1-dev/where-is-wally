@@ -70,7 +70,7 @@ const Image = ({
         handleMove(touch.clientX, touch.clientY);
     };
 
-    const handleTouchEnd = (event: React.TouchEvent<HTMLImageElement>) => {
+    const handleTouchEnd = () => {
         handleEnd();
     };
     
