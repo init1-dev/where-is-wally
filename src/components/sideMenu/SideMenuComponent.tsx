@@ -4,15 +4,23 @@ import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { LuBookMarked } from "react-icons/lu";
 import { StyledCircleButton } from "../../styled/Button";
+import { click } from "../../assets/sounds";
 
 interface SideMenuProps {
     imageAreas: Area[];
+    PlaySound: (sound: string, volume?: number) => void;
 }
 
 const SideMenuComponent = ({
-    imageAreas
+    imageAreas,
+    PlaySound
 }: SideMenuProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
+
+    const handleOpen = () => {
+        setIsOpen(prev => !prev);
+        PlaySound(click, 0.25);
+    }
 
     return (
         <>
@@ -20,12 +28,10 @@ const SideMenuComponent = ({
                 <Title>
                     ¿Dónde está Wally?
 
-                    <StyledCircleButton onClick={ () => setIsOpen(prev => !prev) } >
+                    <StyledCircleButton onClick={handleOpen} >
                         <RiCloseLargeFill />
                     </StyledCircleButton>
                 </Title>
-
-                <hr />
 
                 <List>
                     {
@@ -40,7 +46,7 @@ const SideMenuComponent = ({
                 </List>
             </SideMenu>
 
-            <ToggleButton $isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+            <ToggleButton $isOpen={isOpen} onClick={handleOpen}>
                 {
                     isOpen
                         ? <RiCloseLargeFill style={{fontSize:'20px'}} />
@@ -52,12 +58,12 @@ const SideMenuComponent = ({
 }
 
 const SideMenu = styled.div<{ $isOpen: boolean }>`
-    max-width: 100%;
+    margin-left: 10px;
     margin-right: 5px;
     position: absolute;
     top: 10px;
     right: 20px;
-    z-index: 1;
+    z-index: 2;
     background-color: white;
     user-select: unset;
     border-radius: 0.5rem;
@@ -65,6 +71,7 @@ const SideMenu = styled.div<{ $isOpen: boolean }>`
     transform: scale(${props => (props.$isOpen ? 1 : 0)});
     transform-origin: top right;
     transition: transform 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
 const Title = styled.h2`
@@ -87,6 +94,7 @@ const ListItem = styled.li`
 `;
 
 const SmallText = styled.small<{ $found: boolean }>`
+    color: ${props => (props.$found ? 'green' : '#5c5c5c')};
     text-decoration: ${props => (props.$found ? 'line-through' : '')};
 `;
 
@@ -95,7 +103,7 @@ const ToggleButton = styled(StyledCircleButton)<{ $isOpen: boolean }>`
     position: absolute;
     top: 20px;
     right: 40px;
-    z-index: 2;
+    z-index: 1;
 `;
 
 export default SideMenuComponent;

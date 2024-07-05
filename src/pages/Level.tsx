@@ -3,16 +3,29 @@ import InteractiveImage from "../components/Image/InteractiveImage";
 import { image } from "../utils/Image";
 import { useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { StyledCircleButton } from "../styled/Button";
+import { click } from "../assets/sounds";
 
 const LevelComponent = () => {
     const [ imageAreas, setImageAreas ] = useState(image.areas);
+    const navigate = useNavigate();
+
+    const PlaySound = (sound: string, volume?: number) => {
+        const audio = new Audio(sound);
+        audio.volume = volume ? volume : 0.75;
+        audio.play();
+    }
+
+    const handleReturn = () => {
+        PlaySound(click, 0.25);
+        navigate("/main");
+    }
 
     return (
         <MainPageContainer>
             <TextContainer>
-                <StyledCircleButton as={Link} to={'/main'}>
+                <StyledCircleButton onClick={handleReturn}>
                     <IoMdArrowBack style={{fontSize:'20px'}} />
                 </StyledCircleButton>
             </TextContainer>
@@ -21,6 +34,7 @@ const LevelComponent = () => {
                 image={image.image} 
                 imageAreas={imageAreas} 
                 setImageAreas={setImageAreas} 
+                PlaySound={PlaySound}
             />
         </MainPageContainer>
     );

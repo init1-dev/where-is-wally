@@ -17,5 +17,6 @@ export interface Image {
 export interface IntectiveImageProps {
     image: string;
     imageAreas: Area[];
-    setImageAreas: Dispatch<SetStateAction<Area[]>>
+    setImageAreas: Dispatch<SetStateAction<Area[]>>;
+    PlaySound: (sound: string, volume?: number) => void;
 }

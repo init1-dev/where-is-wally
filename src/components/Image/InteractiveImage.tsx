@@ -11,16 +11,13 @@ import SideMenuComponent from "../sideMenu/SideMenuComponent";
 const IntectiveImage = ({
     image,
     imageAreas,
-    setImageAreas
+    setImageAreas,
+    PlaySound
 }: IntectiveImageProps) => {
     const imageRef = useRef<HTMLImageElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
-
-    const PlaySound = (sound: string) => {
-        new Audio(sound).play();
-    }
 
     const checkAllFound = () => {
         return imageAreas.every(area => area.found);
@@ -65,7 +62,7 @@ const IntectiveImage = ({
 
     return (
         <ImageContainer ref={containerRef}>
-            <SideMenuComponent imageAreas={imageAreas} />
+            <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound}/>
 
             <Image containerRef={containerRef} imageRef={imageRef} image={image} />
 
