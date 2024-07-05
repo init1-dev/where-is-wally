@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { found, tada, clap, start } from '../../assets/sounds';
 import Image from "./Image";
 import Areas from "./Areas";
+import SideMenuComponent from "../sideMenu/SideMenuComponent";
 
 const IntectiveImage = ({
     image,
@@ -64,6 +65,8 @@ const IntectiveImage = ({
 
     return (
         <ImageContainer ref={containerRef}>
+            <SideMenuComponent imageAreas={imageAreas} />
+
             <Image containerRef={containerRef} imageRef={imageRef} image={image} />
 
             <Areas

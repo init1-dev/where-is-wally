@@ -15,9 +15,12 @@ const Areas = ({
     const itemFound = (foundArea: Area) => {
         if(!foundArea.found){
             Alert.fire({
-                icon: 'success',
-                title: 'Enhorabuena!',
-                html: `Encontraste: <i>${foundArea.description}</i>`,
+                html: `
+                    <h2>Encontrado:</h2>
+                    <i>"${foundArea.description}"</i>
+                `,
+                showConfirmButton: true,
+                confirmButtonText: '¡Bien!'
             })
 
             setImageAreas((prevAreas) =>
