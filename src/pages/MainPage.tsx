@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 import styled from "styled-components";
 import header from "../assets/wally_header.jpg";
 import wally2 from "../assets/wally2.jpg";
@@ -41,19 +42,15 @@ const MainPage = () => {
 
             <TextContainer>
                 <Paragraph>
-                    Esto es una maqueta inicial de la aplicación que estoy desarrollando, basada en los libros "¿Dónde está Wally? de Martin Handford que tanto marcaron mi infancia.
+                    Esto aplicación es una maqueta inicial, aún en estado de desarrollo, basada en los libros <strong>"¿Dónde está Wally?</strong> de <strong>Martin Handford</strong> que tanto marcaron mi infancia.
                 </Paragraph>
 
                 <Paragraph>
-                    Actualmente sólo existe un nivel en pruebas que está siendo desarrollado.
+                    Actualmente sólo dispone de un nivel de prueba. Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, la idea es continuar su desarrollo, añadiendo todos los escenarios presentes en los libros homónimos, así como nuevas funcionalidades.
                 </Paragraph>
 
                 <Paragraph>
-                    Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, mi idea es seguir desarrollando y añadiendo todos los escenarios presentes en los libros homónimos, así como nuevas funcionalidades.
-                </Paragraph>
-
-                <Paragraph>
-                    Repo:&nbsp;
+                    <FaGithub /> Repo:&nbsp;
                     <a 
                         href="https://github.com/init1-dev/where-is-wally"
                         target="_black"
@@ -154,12 +151,21 @@ export const StyledButton = styled.button<{ $disabled: boolean }>`
 const TextContainer = styled.div`
     display: flex;
     flex-direction: column;
-    max-width: 80%;
+    max-width: 90%;
     gap: 1rem;
+
+    @media(min-width: 750px)  {
+        max-width: 80%;
+    }
 `;
 
 const Paragraph = styled.p`
     margin: 0;
+    text-align: justify;
+
+    @media(min-width: 750px)  {
+        text-align: unset;
+    }
 `;
 
 export default MainPage;
