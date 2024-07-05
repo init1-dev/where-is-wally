@@ -59,10 +59,9 @@ const SideMenuComponent = ({
 
 const SideMenu = styled.div<{ $isOpen: boolean }>`
     margin-left: 10px;
-    margin-right: 5px;
     position: absolute;
     top: 10px;
-    right: 20px;
+    right: 10px;
     z-index: 2;
     background-color: white;
     user-select: unset;
@@ -79,7 +78,7 @@ const Title = styled.h2`
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
-    margin: 0.5rem 1rem 0 1rem;
+    margin: 0.5rem 0.5rem 0 1rem;
     padding: 0;
     color: black;
 `;
