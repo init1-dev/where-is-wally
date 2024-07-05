@@ -61,16 +61,19 @@ const Image = ({
     };
 
     const handleTouchStart = (event: React.TouchEvent<HTMLImageElement>) => {
+        event.preventDefault();
         const touch = event.touches[0];
         handleStart(touch.clientX, touch.clientY);
     };
 
     const handleTouchMove = (event: React.TouchEvent<HTMLImageElement>) => {
+        event.preventDefault();
         const touch = event.touches[0];
         handleMove(touch.clientX, touch.clientY);
     };
 
-    const handleTouchEnd = () => {
+    const handleTouchEnd = (event: React.TouchEvent<HTMLImageElement>) => {
+        event.preventDefault();
         handleEnd();
     };
     

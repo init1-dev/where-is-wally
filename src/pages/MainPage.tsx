@@ -51,6 +51,7 @@ const MainPageContainer = styled.div`
 
 export const StyledButton = styled.button`
     margin-top: 1rem;
+    margin-bottom: 1rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
     background-color: grey;

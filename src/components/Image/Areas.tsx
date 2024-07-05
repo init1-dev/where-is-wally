@@ -2,18 +2,15 @@ import styled from "styled-components";
 import { Area } from "../../interfaces/interfaces";
 import { Alert, Toast } from "../../utils/alerts/customAlert";
 import { Dispatch, SetStateAction } from "react";
-import tada from '../../assets/tada.mp3';
 
 interface AreasProps {
-    PlaySound: (sound: string) => void;
     imageAreas: Area[];
     setImageAreas: Dispatch<SetStateAction<Area[]>>;
 }
 
 const Areas = ({
-    PlaySound,
     imageAreas,
-    setImageAreas,
+    setImageAreas
 }: AreasProps) => {
     const itemFound = (foundArea: Area) => {
         if(!foundArea.found){
@@ -23,8 +20,6 @@ const Areas = ({
                 html: `Encontraste: <i>${foundArea.description}</i>`,
             })
 
-            PlaySound(tada);
-    
             setImageAreas((prevAreas) =>
                 prevAreas.map((area) =>
                     area.alt === foundArea.alt ? { ...area, found: true } : area

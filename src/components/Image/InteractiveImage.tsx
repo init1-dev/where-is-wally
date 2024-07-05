@@ -2,9 +2,8 @@ import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { IntectiveImageProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
-
-import clap from '../../assets/clap.mp3';
 import { useNavigate } from "react-router-dom";
+import { found, tada, clap, start } from '../../assets/sounds';
 import Image from "./Image";
 import Areas from "./Areas";
 
@@ -16,6 +15,7 @@ const IntectiveImage = ({
     const imageRef = useRef<HTMLImageElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
+    const isFirstRender = useRef(true);
 
     const PlaySound = (sound: string) => {
         new Audio(sound).play();
@@ -25,34 +25,51 @@ const IntectiveImage = ({
         return imageAreas.every(area => area.found);
     };
 
-    useEffect(() => {
-        if (checkAllFound()) {
-            PlaySound(clap);
+    const handleSounds = () => {
+        if(isFirstRender.current){
+            PlaySound(start);
+            isFirstRender.current = false;
+        } else {
+            const isAllFound = checkAllFound();
 
-            Alert.fire({
-                icon: 'success',
-                html: `
-                    <h1>¡Enhorabuena!</h1>
-                    <p>Has encontrado todas las pistas</p>
-                    <small>¡Gracias por probar esta demo!</small>
-                `,
-                showCloseButton: false,
-                allowOutsideClick: false,
-                showConfirmButton: true,
-                confirmButtonText: 'Volver'
-            }).then((result) => {
-                if(result.isConfirmed){
-                    navigate('/main')
-                }
-            })
+            if(isAllFound) {
+                PlaySound(tada)
+                PlaySound(clap);
+
+                Alert.fire({
+                    icon: 'success',
+                    html: `
+                        <h1>¡Enhorabuena!</h1>
+                        <p>Has encontrado todas las pistas</p>
+                        <small>¡Gracias por probar esta demo!</small>
+                    `,
+                    showCloseButton: false,
+                    allowOutsideClick: false,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Volver'
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        navigate('/main')
+                    }
+                })
+            } else {
+                PlaySound(found);
+            }
         }
+    }
+
+    useEffect(() => {
+        handleSounds();
     }, [imageAreas]);
 
     return (
         <ImageContainer ref={containerRef}>
             <Image containerRef={containerRef} imageRef={imageRef} image={image} />
 
-            <Areas PlaySound={PlaySound} imageAreas={imageAreas} setImageAreas={setImageAreas} />
+            <Areas
+                imageAreas={imageAreas} 
+                setImageAreas={setImageAreas}
+            />
         </ImageContainer>
     );
 }
