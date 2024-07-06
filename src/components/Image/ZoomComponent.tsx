@@ -7,10 +7,6 @@ interface ZoomComponentProps {
     setZoom: Dispatch<SetStateAction<number>>;
 }
 
-interface ButtonProps {
-    disabled: boolean;
-}
-
 function ZoomComponent({
     zoom,
     setZoom
@@ -59,7 +55,7 @@ const ZoomContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
-const Button = styled.button<ButtonProps>`
+const Button = styled.button<{disabled: boolean}>`
     all: unset;
     color: ${props => props.disabled ? 'rgb(0 0 0 / 0.2)' : 'rgb(0 0 0 / 1)'};
     cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
