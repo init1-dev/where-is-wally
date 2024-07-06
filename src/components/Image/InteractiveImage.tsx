@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { IntectiveImageProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
@@ -7,6 +7,7 @@ import { found, tada, clap, start } from '../../assets/sounds';
 import Image from "./Image";
 import Areas from "./Areas";
 import SideMenuComponent from "../sideMenu/SideMenuComponent";
+import ZoomComponent from "./ZoomComponent";
 
 const IntectiveImage = ({
     image,
@@ -18,6 +19,8 @@ const IntectiveImage = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
+
+    const [ zoom, setZoom ] = useState(1);
 
     const checkAllFound = () => {
         return imageAreas.every(area => area.found);
@@ -64,12 +67,19 @@ const IntectiveImage = ({
         <ImageContainer ref={containerRef}>
             <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound}/>
 
-            <Image containerRef={containerRef} imageRef={imageRef} image={image} />
+            <Image 
+                containerRef={containerRef} 
+                imageRef={imageRef} 
+                image={image} 
+                zoom={zoom}
+            />
 
             <Areas
                 imageAreas={imageAreas} 
                 setImageAreas={setImageAreas}
             />
+
+            <ZoomComponent zoom={zoom} setZoom={setZoom} />
         </ImageContainer>
     );
 }

@@ -49,16 +49,21 @@ const MainPage = () => {
                     Actualmente sólo dispone de un nivel de prueba. Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, la idea es continuar su desarrollo, añadiendo todos los escenarios presentes en los libros homónimos, así como nuevas funcionalidades.
                 </Paragraph>
 
-                <Paragraph>
-                    <FaGithub /> Repo:&nbsp;
-                    <a 
-                        href="https://github.com/init1-dev/where-is-wally"
-                        target="_black"
-                        rel="noopener noreferrer"
-                    >
-                        github
-                    </a>
-                </Paragraph>
+                <FlexParagraph>
+                    <FaGithub />
+
+                    <span>
+                        Repo:&nbsp;
+                        
+                        <a 
+                            href="https://github.com/init1-dev/where-is-wally"
+                            target="_black"
+                            rel="noopener noreferrer"
+                        >
+                            github
+                        </a>
+                    </span>
+                </FlexParagraph>
             </TextContainer>
 
             <GridContainer>
@@ -106,6 +111,12 @@ const GridContainer = styled.div`
     grid-template-columns: repeat(1, 1fr);
 
     @media(min-width: 750px)  {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        width: unset;
+    }
+
+    @media(min-width: 1000px)  {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
         width: unset;
@@ -119,12 +130,15 @@ const ImageContainer = styled.div<{ $disabled: boolean }>`
     background-color: #31394f;
     border-radius: 0.5rem;
     padding: 1rem;
-    transition: transform 0.3s ease;
     pointer-events: ${props => props.$disabled ? 'hover' : ''};
     cursor: ${props => props.$disabled ? 'not-allowed' : 'pointer'};
 
-    &:hover {
-        transform: scale(1.05);
+    @media(min-width: 1000px)  {
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 `;
 
@@ -165,6 +179,16 @@ const Paragraph = styled.p`
 
     @media(min-width: 750px)  {
         text-align: unset;
+    }
+`;
+
+const FlexParagraph = styled(Paragraph)`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    @media(min-width: 750px)  {
+        justify-content: center;
     }
 `;
 

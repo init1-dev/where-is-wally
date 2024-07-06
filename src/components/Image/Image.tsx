@@ -5,12 +5,14 @@ interface ImageProps {
     containerRef: RefObject<HTMLDivElement>;
     imageRef: RefObject<HTMLImageElement>;
     image: string;
+    zoom: number;
 }
 
 const Image = ({
     containerRef,
     imageRef,
-    image
+    image,
+    zoom
 }: ImageProps) => {
     const [dragging, setDragging] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -88,7 +90,7 @@ const Image = ({
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            style={{ top: position.y, left: position.x }}
+            style={{ top: position.y, left: position.x, transform:`scale(${zoom})` }}
         />
     );
 }
@@ -101,6 +103,8 @@ const StyledImage = styled.img<{ $isDragging: boolean}>`
     position: absolute;
     user-select: none;
     cursor: ${props => (props.$isDragging ? "grabbing" : "grab")};
+    transition: transform 0.3s ease;
+    transform-origin: center center;
 `;
 
 export default Image;
