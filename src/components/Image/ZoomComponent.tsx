@@ -1,37 +1,42 @@
 import styled from "styled-components";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
-import { Dispatch, SetStateAction } from "react";
+import { PanzoomObject } from "@panzoom/panzoom";
+import { useState } from "react";
 
 interface ZoomComponentProps {
-    zoom: number;
-    setZoom: Dispatch<SetStateAction<number>>;
+    panzoom: PanzoomObject | null;
+    maxScale: number;
 }
 
 function ZoomComponent({
-    zoom,
-    setZoom
+    panzoom,
+    maxScale
 }: ZoomComponentProps) {
+    const [scale, setScale] = useState<number>(panzoom ? panzoom.getScale() : 1);
+
     const handleZoomIn = () => {
-        if(zoom < 2){
-            setZoom(prev => prev * 1.2)
+        if (panzoom) {
+            panzoom.zoomIn();
+            setScale(panzoom.getScale());
         }
     };
 
     const handleZoomOut = () => {
-        if(zoom > 1){
-            setZoom(prev => prev / 1.2);
+        if (panzoom) {
+            panzoom.zoomOut();
+            setScale(panzoom.getScale());
         }
-    }
+    };
 
     return (
         <ZoomContainer>
-            <Button onClick={handleZoomIn} disabled={zoom >= 2}>
+            <Button onClick={handleZoomIn} disabled={ scale >= maxScale } >
                 <BsZoomIn />
             </Button>
 
             <StyledSeparator />
 
-            <Button onClick={handleZoomOut} disabled={zoom <= 1}>
+            <Button onClick={handleZoomOut} disabled={ scale <= 1 } >
                 <BsZoomOut />
             </Button>
 
@@ -55,7 +60,7 @@ const ZoomContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
-const Button = styled.button<{disabled: boolean}>`
+const Button = styled.button<{ disabled: boolean }>`
     all: unset;
     color: ${props => props.disabled ? 'rgb(0 0 0 / 0.2)' : 'rgb(0 0 0 / 1)'};
     cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};

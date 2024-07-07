@@ -13,6 +13,7 @@
     "deploy-s3": "npm run build && aws s3 sync ./dist s3://where-is-wally-in1t --delete --acl public-read"
   },
   "dependencies": {
+    "@panzoom/panzoom": "^4.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",

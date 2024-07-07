@@ -5,9 +5,9 @@ import { Alert } from "../../utils/alerts/customAlert";
 import { useNavigate } from "react-router-dom";
 import { found, tada, clap, start } from '../../assets/sounds';
 import Image from "./Image";
-import Areas from "./Areas";
 import SideMenuComponent from "../sideMenu/SideMenuComponent";
 import ZoomComponent from "./ZoomComponent";
+import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 
 const IntectiveImage = ({
     image,
@@ -15,12 +15,32 @@ const IntectiveImage = ({
     setImageAreas,
     PlaySound
 }: IntectiveImageProps) => {
-    const imageRef = useRef<HTMLImageElement>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
+    const imgRef = useRef<HTMLImageElement>(null);
+    const [panzoomElement, setPanzoomElement] = useState<PanzoomObject | null>(null);
 
-    const [ zoom, setZoom ] = useState(1);
+    const maxScale = 3;
+
+    useEffect(() => {
+        if (imgRef.current) {
+            const panzoom = Panzoom(imgRef.current, {
+                maxScale: maxScale,
+                minScale: 1,
+                contain: 'outside',
+                startX: 0,
+                startY: 0
+            });
+
+            setPanzoomElement(panzoom);
+            
+            imgRef.current.parentElement!.addEventListener('wheel', panzoom.zoomWithWheel);
+
+            return () => {
+                imgRef.current?.parentElement?.removeEventListener('wheel', panzoom.zoomWithWheel);
+            };
+        }
+    }, []);
 
     const checkAllFound = () => {
         return imageAreas.every(area => area.found);
@@ -64,22 +84,17 @@ const IntectiveImage = ({
     }, [imageAreas]);
 
     return (
-        <ImageContainer ref={containerRef}>
+        <ImageContainer>
             <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound}/>
 
             <Image 
-                containerRef={containerRef} 
-                imageRef={imageRef} 
-                image={image} 
-                zoom={zoom}
-            />
-
-            <Areas
+                image={image}
                 imageAreas={imageAreas} 
                 setImageAreas={setImageAreas}
+                imgRef={imgRef}
             />
 
-            <ZoomComponent zoom={zoom} setZoom={setZoom} />
+            <ZoomComponent panzoom={panzoomElement} maxScale={maxScale} />
         </ImageContainer>
     );
 }

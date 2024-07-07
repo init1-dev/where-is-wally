@@ -19,8 +19,15 @@ const Areas = ({
                     <h2>Encontrado:</h2>
                     <i>"${foundArea.description}"</i>
                 `,
+                timer: 2500,
+                timerProgressBar: true,
+                showCloseButton: false,
                 showConfirmButton: true,
-                confirmButtonText: '¡Bien!'
+                confirmButtonText: '¡Bien!',
+                didOpen: (toast) => {
+                    toast.onmouseenter = Alert.stopTimer;
+                    toast.onmouseleave = Alert.resumeTimer;
+                }
             })
 
             setImageAreas((prevAreas) =>
@@ -49,7 +56,7 @@ const Areas = ({
 }
 
 const InteractiveArea = styled.area`
-    cursor: grab;
+    cursor: pointer;
 
     &:hover {
         display: block;
