@@ -19,6 +19,7 @@ const IntectiveImage = ({
     const isFirstRender = useRef(true);
     const imgRef = useRef<HTMLImageElement>(null);
     const [panzoomElement, setPanzoomElement] = useState<PanzoomObject | null>(null);
+    const [scale, setScale] = useState<number>(panzoomElement ? panzoomElement.getScale() : 1);
 
     const maxScale = 3;
 
@@ -94,7 +95,12 @@ const IntectiveImage = ({
                 imgRef={imgRef}
             />
 
-            <ZoomComponent panzoom={panzoomElement} maxScale={maxScale} />
+            <ZoomComponent 
+                panzoom={panzoomElement} 
+                maxScale={maxScale} 
+                scale={scale} 
+                setScale={setScale}
+            />
         </ImageContainer>
     );
 }

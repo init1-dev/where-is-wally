@@ -1,18 +1,21 @@
 import styled from "styled-components";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { PanzoomObject } from "@panzoom/panzoom";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface ZoomComponentProps {
     panzoom: PanzoomObject | null;
     maxScale: number;
+    scale: number;
+    setScale: Dispatch<SetStateAction<number>>;
 }
 
 function ZoomComponent({
     panzoom,
-    maxScale
+    maxScale,
+    scale,
+    setScale
 }: ZoomComponentProps) {
-    const [scale, setScale] = useState<number>(panzoom ? panzoom.getScale() : 1);
 
     const handleZoomIn = () => {
         if (panzoom) {

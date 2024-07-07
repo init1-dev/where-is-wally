@@ -1,4 +1,4 @@
-import { Dispatch, RefObject, SetStateAction, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { Area } from '../../interfaces/interfaces';
 import Areas from './Areas';
 import styled from 'styled-components';
@@ -16,8 +16,7 @@ const Image = ({
     setImageAreas,
     imgRef
 }: ImageProps) => {
-    const [dragging, setDragging] = useState(false);
-
+    
     return (
         <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
             <StyledImage
@@ -25,9 +24,6 @@ const Image = ({
                 src={image}
                 alt="wally-test"
                 useMap='#image-map'
-                $isDragging={dragging}
-                onMouseDown={ () => setDragging(true) }
-                onMouseUp={ () => setDragging(false) }
             />
 
             <Areas
@@ -38,7 +34,7 @@ const Image = ({
     );
 };
 
-const StyledImage = styled.img<{ $isDragging: boolean}>`
+const StyledImage = styled.img`
     user-select: none;
     cursor: pointer !important;
 `;
