@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Area } from "../../interfaces/interfaces";
-import { Alert, Toast } from "../../utils/alerts/customAlert";
+import { Alert } from "../../utils/alerts/customAlert";
 import { Dispatch, SetStateAction } from "react";
 
 interface AreasProps {
@@ -28,12 +28,6 @@ const Areas = ({
                     area.alt === foundArea.alt ? { ...area, found: true } : area
                 )
             );
-        } else {
-            Toast.fire({
-                icon: 'warning',
-                title: 'Already found!',
-                position: 'top-end'
-            })
         }
     }
     

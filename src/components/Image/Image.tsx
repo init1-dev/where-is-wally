@@ -35,8 +35,11 @@ const Image = ({
                 const newX = clientX - startPosition.x;
                 const newY = clientY - startPosition.y;
 
-                const maxX = container.offsetWidth - image.offsetWidth;
-                const maxY = container.offsetHeight - image.offsetHeight;
+                const scaledWidth = image.offsetWidth * zoom;
+                const scaledHeight = image.offsetHeight * zoom;
+
+                const maxX = container.offsetWidth - scaledWidth;
+                const maxY = container.offsetHeight - scaledHeight;
 
                 const boundedX = Math.min(0, Math.max(newX, maxX));
                 const boundedY = Math.min(0, Math.max(newY, maxY));
@@ -104,7 +107,7 @@ const StyledImage = styled.img<{ $isDragging: boolean}>`
     user-select: none;
     cursor: ${props => (props.$isDragging ? "grabbing" : "grab")};
     transition: transform 0.3s ease;
-    transform-origin: center center;
+    transform-origin: top  left;
 `;
 
 export default Image;

@@ -15,7 +15,7 @@ const SideMenuComponent = ({
     imageAreas,
     PlaySound
 }: SideMenuProps) => {
-    const [ isOpen, setIsOpen ] = useState(false);
+    const [ isOpen, setIsOpen ] = useState(true);
 
     const handleOpen = () => {
         setIsOpen(prev => !prev);
