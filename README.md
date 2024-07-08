@@ -41,7 +41,6 @@ $npm run dev
 ### TODO:
 - ADD: zoom feature (in development)
 - FIX: areas cannot interact with mouse for dragging
-- Test different Interactive locations and functionality with static data
 
 ## Contact
 

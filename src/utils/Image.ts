@@ -1,8 +1,7 @@
 import { Image } from "../interfaces/interfaces";
-import imageSrc from '../assets/wally-test.jpeg';
 
 export const image: Image = {
-    image: imageSrc,
+    image: 'https://in1t-container.s3.eu-west-3.amazonaws.com/where-is-wally/wally-test.jpeg',
     areas: [
         {   
             description: 'Wally entre la multitud',

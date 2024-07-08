@@ -35,7 +35,10 @@ const IntectiveImage = ({
 
             setPanzoomElement(panzoom);
             
-            imgRef.current.parentElement!.addEventListener('wheel', panzoom.zoomWithWheel);
+            imgRef.current.parentElement!.addEventListener('wheel', function(event) {
+                panzoom.zoomWithWheel(event);
+                setScale(panzoom.getScale());
+            });
 
             return () => {
                 imgRef.current?.parentElement?.removeEventListener('wheel', panzoom.zoomWithWheel);
