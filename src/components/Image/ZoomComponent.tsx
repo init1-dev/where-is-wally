@@ -54,7 +54,7 @@ const ZoomContainer = styled.div`
         position: absolute;
         display: flex;
         flex-direction: column;
-        bottom: 15px;
+        bottom: 1.5vh;
         right: 15px;
         z-index: 2;
         background-color: white;
