@@ -50,7 +50,7 @@ function ZoomComponent({
 const ZoomContainer = styled.div`
     display: none;
 
-    @media(min-width: 1200px)  {
+    @media(min-width: 1500px)  {
         position: absolute;
         display: flex;
         flex-direction: column;
