@@ -48,23 +48,19 @@ function ZoomComponent({
 }
 
 const ZoomContainer = styled.div`
-    display: none;
-
-    @media(min-width: 1000px)  {
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-        bottom: 15px;
-        right: 15px;
-        z-index: 2;
-        background-color: white;
-        user-select: unset;
-        border-radius: 0.5rem;
-        filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-        transform-origin: top right;
-        transition: transform 0.3s ease;
-        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
-    }
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    bottom: 15px;
+    right: 15px;
+    z-index: 2;
+    background-color: white;
+    user-select: unset;
+    border-radius: 0.5rem;
+    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
+    transform-origin: top right;
+    transition: transform 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 `;
 
 const Button = styled.button<{ disabled: boolean }>`
