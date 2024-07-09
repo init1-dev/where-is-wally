@@ -35,12 +35,15 @@ $npm run dev
 ```
 
 ## Next Updates
-- Side Panels: Settings (left) and current scenario achievements (right)
+- general refactor
+- new scenario clues system to improve scenario creating process
+- improve image loading
+- Keep adding new scenarios and books
 
+### KNOWN BUGS:
+- sometimes images doesn't load correctly due to image size
 
 ### TODO:
-- ADD: zoom feature (in development)
-- FIX: areas cannot interact with mouse for dragging
 - Refactor
 
 ## Contact
