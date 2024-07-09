@@ -17,6 +17,7 @@ export interface InteractiveImageProps {
     image: string;
     imageAreas: Area[];
     setImageAreas: Dispatch<SetStateAction<Area[]>> | undefined;
+    levelName: string;
 }
 
 export interface Scenario {

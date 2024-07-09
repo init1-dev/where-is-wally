@@ -13,7 +13,8 @@ import { PlaySound } from "../../utils/playSound";
 const InteractiveImage = ({
     image,
     imageAreas,
-    setImageAreas
+    setImageAreas,
+    levelName
 }: InteractiveImageProps) => {
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
@@ -99,7 +100,7 @@ const InteractiveImage = ({
 
     return (
         <ImageContainer>
-            <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound}/>
+            <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound} levelName={levelName} />
 
             <Image 
                 image={image}

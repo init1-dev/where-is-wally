@@ -72,8 +72,9 @@ export const GlobalStyles = createGlobalStyle<{ theme?: Theme }>`
             60.6px 60px 95.9px -2.5px hsl(var(--shadow-color) / 0.08);
     }
 
-    body {
+    * {
         margin: 0;
+        padding: 0;
     }
 
     .loader {

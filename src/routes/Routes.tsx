@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter, redirect } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import Layout from "../components/Layout";
 
@@ -6,37 +6,39 @@ import MainPage from "../pages/MainPage";
 import LevelComponent from "../pages/Level";
 import BookView from "../pages/BookView";
 
+const ROUTES = {
+    ROOT: "/",
+    MAIN: "/main",
+    BOOK: "/book/:id",
+    LEVEL: "/level/:bookId/:levelId",
+    NOT_FOUND: "*"
+};
+
 const router = createBrowserRouter([
     {
         id: "root",
-        path: '/',
-        Component: Layout,
+        path: ROUTES.ROOT,
+        element: <Layout />,
         children: [
             {
-                path: '/',
+                path: ROUTES.ROOT,
                 element: <Navigate to="/main" replace />
             },
             {
-                path: "main",
-                Component: MainPage
+                path: ROUTES.MAIN,
+                element: <MainPage />
             },
             {
-                path: "test",
-                Component: LevelComponent
+                path: ROUTES.BOOK,
+                element: <BookView />
             },
             {
-                path: "book/:id",
-                Component: BookView
+                path: ROUTES.LEVEL,
+                element: <LevelComponent />
             },
             {
-                path: "level/:bookId/:scenarioId",
-                Component: LevelComponent
-            },
-            {
-                path: "*",
-                async loader() {
-                    return redirect("/main");
-                }
+                path: ROUTES.NOT_FOUND,
+                element: <Navigate to="/main" replace />
             }
         ]
     }
