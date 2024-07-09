@@ -60,7 +60,7 @@ const BookView = () => {
                         </GridContainer>
                     :   <Future>
                             <h2>{' — En el futuro —'}</h2>
-                            <img src={header} alt="wally-header" />
+                            <img src={header} alt="wally-header" style={{maxWidth:'90%', objectFit:'cover', padding:'0 2rem'}}/>
                         </Future>
             }
             

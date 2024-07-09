@@ -7,6 +7,13 @@ export const aeropuerto: Scenario = {
     portrait: 'https://in1t-container.s3.eu-west-3.amazonaws.com/where-is-wally/Libros/libro-1/6_airport_portrait.jpg',
     areas: [
         {
+            description: "Wally en el aeropuerto",
+            alt: "wally",
+            coords: "1909,622,1967,734",
+            shape: "rect",
+            found: false
+        },
+        {
             description: "Un platillo volante",
             alt: "platillo-volante",
             coords: "28,39,114,86",
@@ -164,13 +171,6 @@ export const aeropuerto: Scenario = {
             description: "Una aeronave pinchada",
             alt: "aeronave-pinchada",
             coords: "1941,17,2184,156",
-            shape: "rect",
-            found: false
-        },
-        {
-            description: "Wally",
-            alt: "wally",
-            coords: "1909,622,1967,734",
             shape: "rect",
             found: false
         },
