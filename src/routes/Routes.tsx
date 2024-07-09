@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 
 import MainPage from "../pages/MainPage";
 import LevelComponent from "../pages/Level";
+import BookView from "../pages/BookView";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
             },
             {
                 path: "test",
+                Component: LevelComponent
+            },
+            {
+                path: "book/:id",
+                Component: BookView
+            },
+            {
+                path: "level/:bookId/:scenarioId",
                 Component: LevelComponent
             },
             {

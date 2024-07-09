@@ -6,7 +6,6 @@ export interface Area {
     coords: string;
     shape: string;
     found: boolean;
-    onClick?: () => void;
 }
 
 export interface Image {
@@ -14,9 +13,28 @@ export interface Image {
     areas: Area[]
 }
 
-export interface IntectiveImageProps {
+export interface InteractiveImageProps {
     image: string;
     imageAreas: Area[];
-    setImageAreas: Dispatch<SetStateAction<Area[]>>;
-    PlaySound: (sound: string, volume?: number) => void;
+    setImageAreas: Dispatch<SetStateAction<Area[]>> | undefined;
+}
+
+export interface Scenario {
+    id: number;
+    name: string;
+    image: string;
+    areas: Area[];
+    playable: boolean;
+    portrait?: string;
+}
+
+export interface Book {
+    number: number;
+    description: string;
+    name: string;
+    createdBy: string;
+    year: number;
+    portrait: string;
+    scenarios: Scenario[];
+    playable: boolean;
 }
