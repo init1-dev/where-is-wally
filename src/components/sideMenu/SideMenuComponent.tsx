@@ -79,6 +79,7 @@ const SideMenu = styled.div<{ $isOpen: boolean }>`
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     hr {
+        width: 100%;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
     }
 `;
@@ -96,7 +97,7 @@ const Title = styled.h2`
 const List = styled.ul`
     flex-grow: 1;
     padding-left: 2.5rem;
-    margin: 0.7rem 0.5rem 1rem 0;
+    margin: 0.25rem 0.5rem 1rem 0;
     text-align: left;
     overflow-y: auto;
     padding-right: 1rem;
