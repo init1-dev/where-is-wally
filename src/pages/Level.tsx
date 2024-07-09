@@ -27,7 +27,7 @@ const LevelComponent = () => {
 
     const handleReturn = () => {
         PlaySound(click, 0.25);
-        navigate(-1);
+        navigate(`/book/${bookId}`, {replace:true});
     }
 
     return (
