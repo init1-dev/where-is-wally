@@ -5,11 +5,36 @@ import { Book } from "../interfaces/interfaces";
 import { PlaySound } from "../utils/playSound";
 import { click } from "../assets/sounds";
 import header from "../assets/wally_header.jpg";
+import { useEffect, useState } from "react";
+import NotFoundComponent from "./NotFound";
+import FutureBook from "./FutureBook";
 
 const BookView = () => {
     const { id } = useParams<{ id: string }>();
-    const book: Book | undefined = id ? books[Number(id)] : undefined;
+    const [ book, setBook ] = useState<Book | undefined>(undefined);
     const navigate = useNavigate();
+
+    const handleBookLoading = (id: string) => {
+        if(id){
+            const idNumber = parseInt(id, 10);
+            if(!isNaN(idNumber)){
+                const foundBook = books.find(book => book.number === idNumber);
+                setBook(foundBook);
+            } else {
+                navigate('/main');
+            }
+        }
+    };
+    
+    useEffect(() => {
+        if(id){
+            handleBookLoading(id);
+        }
+    }, [id]);
+    
+    if (!book) {
+        return <NotFoundComponent />
+    }
 
     return (
         <MainPageContainer>
@@ -26,16 +51,16 @@ const BookView = () => {
             </TextContainer>
 
             {
-                book?.scenarios.length! > 0
+                book.scenarios.length > 0
                     ?   <GridContainer>
                             {
-                                book?.scenarios.map((scenario, i) =>
+                                book.scenarios.map((scenario, i) =>
                                     <ImageContainer 
                                         key={i} 
                                         disabled={ !scenario.playable }
                                         onClick={ 
                                             scenario.playable
-                                                ? () => navigate(`/level/${i}/${scenario.id}`)
+                                                ? () => navigate(`/level/${book.number}/${scenario.id}`)
                                                 : undefined
                                         }
                                     >
@@ -58,10 +83,7 @@ const BookView = () => {
                                 )
                             }
                         </GridContainer>
-                    :   <Future>
-                            <h2>{' — En el futuro —'}</h2>
-                            <img src={header} alt="wally-header" style={{maxWidth:'90%', objectFit:'cover', padding:'0 2rem'}}/>
-                        </Future>
+                    :   <FutureBook />
             }
             
             
@@ -166,12 +188,6 @@ const Paragraph = styled.p`
     @media(min-width: 750px)  {
         text-align: unset;
     }
-`;
-
-const Future = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: auto;
 `;
 
 export default BookView;
