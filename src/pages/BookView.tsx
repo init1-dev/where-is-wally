@@ -8,6 +8,8 @@ import header from "../assets/wally_header.jpg";
 import { useEffect, useState } from "react";
 import NotFoundComponent from "./NotFound";
 import FutureBook from "./FutureBook";
+import { MdArrowBack } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
 
 const BookView = () => {
     const { id } = useParams<{ id: string }>();
@@ -41,11 +43,13 @@ const BookView = () => {
             <TextContainer>
                 <ButtonsContainer>
                     <StyledButton as={Link} to={"/"} onClick={ () => PlaySound(click, 0.25) }>
-                        Volver a colección
+                        <MdArrowBack />
+                        Volver a libros
                     </StyledButton>
 
                     <StyledButton as={Link} to={""} onClick={ () => PlaySound(click, 0.25) }>
                         Crear escenario
+                        <FiPlus />
                     </StyledButton>
 
                 </ButtonsContainer>
@@ -165,6 +169,10 @@ const ButtonsContainer = styled.div`
 `;
 
 export const StyledButton = styled.button<{ disabled?: boolean }>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     margin-top: 1rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
@@ -175,6 +183,10 @@ export const StyledButton = styled.button<{ disabled?: boolean }>`
     cursor: pointer;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
     text-shadow: 1px 1px 1px rgb(0 0 0 / 0.5);
+
+    svg {
+        font-size: 22px;
+    }
 `;
 
 const TextContainer = styled.div`
