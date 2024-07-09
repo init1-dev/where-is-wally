@@ -14,7 +14,7 @@ const BookView = () => {
     const [ book, setBook ] = useState<Book | undefined>(undefined);
     const navigate = useNavigate();
 
-    const handleBookLoading = (id: string) => {
+    const handleBookLoading = (id: string | undefined) => {
         if(id){
             const idNumber = parseInt(id, 10);
             if(!isNaN(idNumber)){
@@ -27,10 +27,8 @@ const BookView = () => {
     };
     
     useEffect(() => {
-        if(id){
-            handleBookLoading(id);
-        }
-    }, [id]);
+        handleBookLoading(id);
+    }, [id, navigate]);
     
     if (!book) {
         return <NotFoundComponent />
@@ -41,9 +39,16 @@ const BookView = () => {
             <h1>{`Libro ${book?.number}: ${book?.name}`}</h1>
 
             <TextContainer>
-                <SmallStyledButton as={Link} to={"/"} onClick={ () => PlaySound(click, 0.25) }>
-                    Volver a colección
-                </SmallStyledButton>
+                <ButtonsContainer>
+                    <StyledButton as={Link} to={"/"} onClick={ () => PlaySound(click, 0.25) }>
+                        Volver a colección
+                    </StyledButton>
+
+                    <StyledButton as={Link} to={""} onClick={ () => PlaySound(click, 0.25) }>
+                        Crear escenario
+                    </StyledButton>
+
+                </ButtonsContainer>
 
                 <Paragraph>
                     {book?.description}
@@ -153,6 +158,12 @@ const ItemImage = styled.img`
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
 `;
 
+const ButtonsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+`;
+
 export const StyledButton = styled.button<{ disabled?: boolean }>`
     margin-top: 1rem;
     border-radius: 0.5rem;
@@ -164,10 +175,6 @@ export const StyledButton = styled.button<{ disabled?: boolean }>`
     cursor: pointer;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
     text-shadow: 1px 1px 1px rgb(0 0 0 / 0.5);
-`;
-
-const SmallStyledButton = styled(StyledButton)`
-    margin: auto;
 `;
 
 const TextContainer = styled.div`
