@@ -61,7 +61,7 @@ const SideMenu = styled.div<{ $isOpen: boolean }>`
     display: flex;
     flex-direction: column;
     margin-left: 10px;
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     z-index: 2;

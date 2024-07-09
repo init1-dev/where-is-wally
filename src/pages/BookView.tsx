@@ -76,7 +76,7 @@ const MainPageContainer = styled.div`
     align-items: center;
 
     h1 {
-        margin-top: 2rem;
+        margin: 2rem 1rem 0 1rem;
     }
 `;
 
