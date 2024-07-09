@@ -101,4 +101,21 @@ export const GlobalStyles = createGlobalStyle<{ theme?: Theme }>`
         50%   {transform:scaleY(-1) rotate(0deg)}
         100%  {transform:scaleY(-1) rotate(-135deg)}
     }
+
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
 `;

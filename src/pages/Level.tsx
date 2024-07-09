@@ -1,27 +1,33 @@
 import styled from "styled-components";
 import InteractiveImage from "../components/Image/InteractiveImage";
-import { image } from "../utils/Image";
-import { useState } from "react";
+import { books } from "../utils/Image";
+import { useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { StyledCircleButton } from "../styled/Button";
 import { click } from "../assets/sounds";
+import { Book, Scenario } from "../interfaces/interfaces";
+import { PlaySound } from "../utils/playSound";
 
 const LevelComponent = () => {
-    const [ imageAreas, setImageAreas ] = useState(image.areas);
+    const { bookId, scenarioId } = useParams<{bookId: string, scenarioId: string}>();
+    const book: Book | undefined = bookId ? books[Number(bookId)] : undefined;
+    const scenario: Scenario | undefined = scenarioId ? book?.scenarios.find(scenario => scenario.id === Number(scenario.id)) : undefined;
+    const [ currentScenario, setCurrentScenario ] = useState<Scenario | null>(scenario || null );
+    const [ imageAreas, setImageAreas ] = useState(scenario?.areas || []);
+    
     const navigate = useNavigate();
 
-    const PlaySound = (sound: string, volume?: number) => {
-        const audio = new Audio(sound);
-        audio.volume = volume ? volume : 0.75;
-        audio.play().catch(error => {
-            console.error("Error al reproducir el sonido:", error);
-        });
-    }
+    useEffect(() => {
+        if (scenario) {
+            setCurrentScenario(scenario);
+            setImageAreas(scenario.areas);
+        }
+    }, [scenario]);
 
     const handleReturn = () => {
         PlaySound(click, 0.25);
-        navigate("/main");
+        navigate(-1);
     }
 
     return (
@@ -32,12 +38,15 @@ const LevelComponent = () => {
                 </StyledCircleButton>
             </TextContainer>
         
-            <InteractiveImage 
-                image={image.image} 
-                imageAreas={imageAreas} 
-                setImageAreas={setImageAreas} 
-                PlaySound={PlaySound}
-            />
+            {
+                imageAreas && (
+                    <InteractiveImage 
+                        image={currentScenario?.image!}
+                        imageAreas={imageAreas} 
+                        setImageAreas={setImageAreas}
+                    />
+                )
+            }
         </MainPageContainer>
     );
 };
