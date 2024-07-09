@@ -8,9 +8,9 @@ import { click } from "../assets/sounds";
 const MainPage = () => {
     const navigate = useNavigate();
 
-    const handleNavigateToBook = (index: number) => {
+    const handleNavigateToBook = (number: number) => {
         PlaySound(click, 0.25);
-        navigate(`/book/${index}`);
+        navigate(`/book/${number}`);
     }
 
     return (
@@ -50,7 +50,7 @@ const MainPage = () => {
                             key={i} 
                             onClick={ 
                                 book.playable 
-                                    ? () => handleNavigateToBook(i)
+                                    ? () => handleNavigateToBook(book.number)
                                     : undefined
                             }
                             $disabled={!book.playable}
