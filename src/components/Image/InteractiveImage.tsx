@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { IntectiveImageProps } from "../../interfaces/interfaces";
+import { InteractiveImageProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
 import { useNavigate } from "react-router-dom";
 import { found, tada, clap, start } from '../../assets/sounds';
@@ -8,26 +8,36 @@ import Image from "./Image";
 import SideMenuComponent from "../sideMenu/SideMenuComponent";
 import ZoomComponent from "./ZoomComponent";
 import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
+import { PlaySound } from "../../utils/playSound";
 
-const IntectiveImage = ({
+const InteractiveImage = ({
     image,
     imageAreas,
-    setImageAreas,
-    PlaySound
-}: IntectiveImageProps) => {
+    setImageAreas
+}: InteractiveImageProps) => {
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
     const imgRef = useRef<HTMLImageElement>(null);
     const [panzoomElement, setPanzoomElement] = useState<PanzoomObject | null>(null);
     const [scale, setScale] = useState<number>(panzoomElement ? panzoomElement.getScale() : 1);
 
-    const maxScale = 3;
+    const maxScale = 2;
+    const minScale = 0.6;
 
     useEffect(() => {
         if (imgRef.current) {
+            const updateStartScale = () => {
+                if (window.innerWidth <= 768) {
+                    return 0.5;
+                } else {
+                    return 0.8;
+                }
+            };
+
             const panzoom = Panzoom(imgRef.current, {
                 maxScale: maxScale,
-                minScale: 1,
+                minScale: minScale,
+                startScale: updateStartScale(),
                 contain: 'outside',
                 startX: 0,
                 startY: 0
@@ -74,7 +84,7 @@ const IntectiveImage = ({
                     confirmButtonText: 'Volver'
                 }).then((result) => {
                     if(result.isConfirmed){
-                        navigate('/main')
+                        navigate(-1)
                     }
                 })
             } else {
@@ -94,13 +104,14 @@ const IntectiveImage = ({
             <Image 
                 image={image}
                 imageAreas={imageAreas} 
-                setImageAreas={setImageAreas}
+                setImageAreas={setImageAreas!}
                 imgRef={imgRef}
             />
 
             <ZoomComponent 
                 panzoom={panzoomElement} 
                 maxScale={maxScale} 
+                minScale={minScale}
                 scale={scale} 
                 setScale={setScale}
             />
@@ -116,4 +127,4 @@ const ImageContainer = styled.div`
 `;
 
 
-export default IntectiveImage;
+export default InteractiveImage;

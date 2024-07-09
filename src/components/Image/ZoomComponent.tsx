@@ -6,6 +6,7 @@ import { Dispatch, SetStateAction } from "react";
 interface ZoomComponentProps {
     panzoom: PanzoomObject | null;
     maxScale: number;
+    minScale: number;
     scale: number;
     setScale: Dispatch<SetStateAction<number>>;
 }
@@ -13,6 +14,7 @@ interface ZoomComponentProps {
 function ZoomComponent({
     panzoom,
     maxScale,
+    minScale,
     scale,
     setScale
 }: ZoomComponentProps) {
@@ -39,7 +41,7 @@ function ZoomComponent({
 
             <StyledSeparator />
 
-            <Button onClick={handleZoomOut} disabled={ scale <= 1 } >
+            <Button onClick={handleZoomOut} disabled={ scale <= minScale } >
                 <BsZoomOut />
             </Button>
 

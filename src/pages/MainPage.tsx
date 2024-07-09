@@ -1,52 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import { FaGithub } from "react-icons/fa";
 import styled from "styled-components";
-import header from "../assets/wally_header.jpg";
-import wally2 from "../assets/wally2.jpg";
-import wally3 from "../assets/wally3.jpg";
+import { books } from "../utils/Image";
+import { PlaySound } from "../utils/playSound";
+import { click } from "../assets/sounds";
 
 const MainPage = () => {
     const navigate = useNavigate();
 
-    interface Images {
-        image: string;
-        text: string;
-        disabled: boolean;
-        url: string;
+    const handleNavigateToBook = (index: number) => {
+        PlaySound(click, 0.25);
+        navigate(`/book/${index}`);
     }
-
-    const images: Images[] = [
-        {
-            image: header,
-            text: 'Ir al nivel de prueba',
-            disabled: false,
-            url: '/test'
-        },
-        {
-            image: wally2,
-            text: 'Work in progress',
-            disabled: true,
-            url: ''
-        },
-        {
-            image: wally3,
-            text: 'Work in progress',
-            disabled: true,
-            url: ''
-        }
-    ];
 
     return (
         <MainPageContainer>
-            <h2>¿Dónde está Wally?</h2>
+            <h1>¿Dónde está Wally?</h1>
 
             <TextContainer>
                 <Paragraph>
-                    Esto aplicación es una maqueta inicial, aún en estado de desarrollo, basada en los libros <strong>"¿Dónde está Wally?</strong> de <strong>Martin Handford</strong> que tanto marcaron mi infancia.
+                    Esta aplicación es una maqueta inicial, aún en estado de desarrollo, basada en los libros <strong>"¿Dónde está Wally?</strong> de <strong>Martin Handford</strong> que tanto marcaron mi infancia.
                 </Paragraph>
 
                 <Paragraph>
-                    Actualmente sólo dispone de un nivel de prueba. Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, la idea es continuar su desarrollo, añadiendo todos los escenarios presentes en los libros homónimos, así como nuevas funcionalidades.
+                    Actualmente sólo dispone de un nivel jugable del primer libro, llamado <strong>"Aeropuerto"</strong>. Cuando todo esté listo, funcionando correctamente y tenga una buena base sobre la que construir, la idea es continuar su desarrollo, añadiendo todos los escenarios presentes en los libros homónimos, así como nuevas funcionalidades.
                 </Paragraph>
 
                 <FlexParagraph>
@@ -68,24 +45,28 @@ const MainPage = () => {
 
             <GridContainer>
                 {
-                    images.map((image, i) =>
+                    books.map((book, i) =>
                         <ImageContainer 
                             key={i} 
                             onClick={ 
-                                image.disabled 
-                                    ? undefined 
-                                    : () => navigate(image.url)
+                                book.playable 
+                                    ? () => handleNavigateToBook(i)
+                                    : undefined
                             }
-                            $disabled={image.disabled}
+                            $disabled={!book.playable}
                         >
                             <ItemImage 
-                                src={image.image}
+                                src={book.portrait}
                                 alt="header-wally" 
                                 style={{borderRadius:'0.5rem'}} 
                             />
 
-                            <StyledButton $disabled={image.disabled}>
-                                {image.text}
+                            <StyledButton $disabled={!book.playable}>
+                                {
+                                    book.playable
+                                        ? book.name
+                                        : 'En el futuro'
+                                }
                             </StyledButton>
                         </ImageContainer>
                     )
@@ -101,6 +82,10 @@ const MainPageContainer = styled.div`
     gap: 1.5rem;
     flex-direction: column;
     align-items: center;
+
+    h1 {
+        margin-top: 2rem;
+    }
 `;
 
 const GridContainer = styled.div`

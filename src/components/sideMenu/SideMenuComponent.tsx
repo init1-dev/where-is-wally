@@ -58,11 +58,14 @@ const SideMenuComponent = ({
 }
 
 const SideMenu = styled.div<{ $isOpen: boolean }>`
+    display: flex;
+    flex-direction: column;
     margin-left: 10px;
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 10px;
     z-index: 2;
+    max-height: 80%;
     background-color: white;
     user-select: unset;
     border-radius: 0.5rem;
@@ -84,8 +87,11 @@ const Title = styled.h2`
 `;
 
 const List = styled.ul`
+    flex-grow: 1;
     margin: 1rem 1rem 1rem 0;
     text-align: left;
+    overflow-y: auto;
+    padding-right: 0.8rem;
 `;
 
 const ListItem = styled.li`
