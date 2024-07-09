@@ -107,7 +107,7 @@ export const books: Book[] = [
     },
     {
         number: 2,
-        description: `Segundo libro de la serie ¿Dónde está Wally? creado por el ilustrador Británico ${{CREATED_BY}} en el año 1988`,
+        description: `Segundo libro de la serie ¿Dónde está Wally? creado por el ilustrador Británico ${CREATED_BY} en el año 1988`,
         name: '¿Dónde está Wally ahora?',
         createdBy: CREATED_BY,
         year: 1988,
