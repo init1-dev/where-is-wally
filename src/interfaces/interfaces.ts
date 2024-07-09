@@ -8,11 +8,6 @@ export interface Area {
     found: boolean;
 }
 
-export interface Image {
-    image: string;
-    areas: Area[]
-}
-
 export interface InteractiveImageProps {
     image: string;
     imageAreas: Area[];
