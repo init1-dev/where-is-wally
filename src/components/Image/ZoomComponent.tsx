@@ -57,7 +57,6 @@ const ZoomContainer = styled.div`
     right: 15px;
     z-index: 2;
     background-color: white;
-    user-select: unset;
     border-radius: 0.5rem;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
     transform-origin: top right;

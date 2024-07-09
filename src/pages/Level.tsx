@@ -60,7 +60,6 @@ const TextContainer = styled.div`
     top: 15px;
     left: 15px;
     z-index: 1;
-    user-select: unset;
     border-radius: 0.5rem;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
 `;

@@ -35,7 +35,6 @@ const Image = ({
 };
 
 const StyledImage = styled.img`
-    user-select: none;
     cursor: pointer !important;
 `;
 
