@@ -38,10 +38,12 @@ $npm run dev
 - general refactor
 - new scenario clues system to improve scenario creating process
 - improve image loading
+- add button to mute sounds
 - Keep adding new scenarios and books
 
 ### KNOWN BUGS:
-- sometimes images doesn't load correctly due to image size
+- sometimes images doesn't load correctly
+- zoom bug, functionality disabled temporarily
 
 ### TODO:
 - Refactor

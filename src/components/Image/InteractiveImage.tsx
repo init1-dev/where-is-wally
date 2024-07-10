@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { found, tada, clap, start } from '../../assets/sounds';
 import Image from "./Image";
 import SideMenuComponent from "../sideMenu/SideMenuComponent";
-import ZoomComponent from "./ZoomComponent";
+// import ZoomComponent from "./ZoomComponent";
 import Panzoom, { PanzoomObject } from "@panzoom/panzoom";
 import { PlaySound } from "../../utils/playSound";
 
@@ -20,7 +20,7 @@ const InteractiveImage = ({
     const isFirstRender = useRef(true);
     const imgRef = useRef<HTMLImageElement>(null);
     const [panzoomElement, setPanzoomElement] = useState<PanzoomObject | null>(null);
-    const [scale, setScale] = useState<number>(panzoomElement ? panzoomElement.getScale() : 1);
+    const [_scale, setScale] = useState<number>(panzoomElement ? panzoomElement.getScale() : 1);
 
     const maxScale = 2;
     const minScale = 0.6;
@@ -28,11 +28,7 @@ const InteractiveImage = ({
     useEffect(() => {
         if (imgRef.current) {
             const updateStartScale = () => {
-                if (window.innerWidth <= 768) {
-                    return 0.5;
-                } else {
-                    return 0.8;
-                }
+                return window.innerWidth <= 768 ? 0.5 : 0.8;
             };
 
             const panzoom = Panzoom(imgRef.current, {
@@ -100,7 +96,11 @@ const InteractiveImage = ({
 
     return (
         <ImageContainer>
-            <SideMenuComponent imageAreas={imageAreas} PlaySound={PlaySound} levelName={levelName} />
+            <SideMenuComponent 
+                imageAreas={imageAreas} 
+                PlaySound={PlaySound} 
+                levelName={levelName} 
+            />
 
             <Image 
                 image={image}
@@ -109,13 +109,13 @@ const InteractiveImage = ({
                 imgRef={imgRef}
             />
 
-            <ZoomComponent 
+            {/* <ZoomComponent 
                 panzoom={panzoomElement} 
                 maxScale={maxScale} 
                 minScale={minScale}
                 scale={scale} 
                 setScale={setScale}
-            />
+            /> */}
         </ImageContainer>
     );
 }
