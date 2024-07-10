@@ -70,6 +70,23 @@ export const GlobalStyles = createGlobalStyle<{ theme?: Theme }>`
             32.7px 32.4px 51.8px -1.9px hsl(var(--shadow-color) / 0.08),
             45px 44.5px 71.2px -2.2px hsl(var(--shadow-color) / 0.08),
             60.6px 60px 95.9px -2.5px hsl(var(--shadow-color) / 0.08);
+
+        --primary: #007bff;
+        --secondary: #6c757d;
+        --success: #28a745;
+        --danger: #dc3545;
+        --warning: #ffc107;
+        --info: #17a2b8;
+        --light: #f8f9fa;
+        --dark: #343a40;
+        --white: #fff;
+        --white-25: rgba(255, 255, 255, 0.25);
+        --white-50: rgba(255, 255, 255, 0.50);
+        --white-75: rgba(255, 255, 255, 0.75);
+        --black: #000;
+        --black-25: rgba(0, 0, 0, 0.25);
+        --black-50: rgba(0, 0, 0, 0.50);
+        --black-75: rgba(0, 0, 0, 0.75);
     }
 
     body {
