@@ -1,18 +1,25 @@
 import styled from "styled-components";
 import header from '../assets/wally_header.jpg';
-import { StyledButton } from "./BookView";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PlaySound } from "../utils/playSound";
 import { click } from "../assets/sounds";
+import { StyledButton } from "../styles/GeneralStyles";
 
 const NotFoundComponent = () => {
+    const navigate = useNavigate();
+
+    const handleReturn = () => {
+        PlaySound(click, 0.25);
+        navigate(-1);
+    }
+
     return (
         <NotFound>
-            <img src={header} alt="wally-header" />
+            <StyledImage src={header} alt="wally-header" />
 
-            <h2>El recurso seleccionado no existe</h2>
+            <StyledText>El recurso seleccionado no existe</StyledText>
 
-            <StyledButton as={Link} to={"/main"} onClick={() => PlaySound(click, 0.25) } >
+            <StyledButton as={Link} to="#" onClick={handleReturn} >
                 Volver atrás
             </StyledButton>
         </NotFound>
@@ -27,11 +34,15 @@ const NotFound = styled.div`
     margin: 2rem;
     overflow: hidden;
     gap: 1rem;
+`;
 
-    h1 {
-        margin: 0;
-        padding: 0;
-    }
+const StyledImage = styled.img`
+    max-height: 25em;
+`;
+
+const StyledText = styled.h3`
+    margin: 0;
+    padding: 0;
 `;
 
 export default NotFoundComponent;

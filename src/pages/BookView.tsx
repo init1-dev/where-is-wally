@@ -10,6 +10,7 @@ import NotFoundComponent from "./NotFound";
 import FutureBook from "./FutureBook";
 import { MdArrowBack } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
+import { StyledButton } from "../styles/GeneralStyles";
 
 const BookView = () => {
     const { id } = useParams<{ id: string }>();
@@ -42,12 +43,22 @@ const BookView = () => {
 
             <TextContainer>
                 <ButtonsContainer>
-                    <StyledButton as={Link} to={"/"} onClick={ () => PlaySound(click, 0.25) }>
+                    <StyledButton 
+                        as={Link} 
+                        to={"/"} 
+                        onClick={ () => PlaySound(click, 0.25) }
+                    >
                         <MdArrowBack />
                         Volver a libros
                     </StyledButton>
 
-                    <StyledButton as={Link} to={""} onClick={ () => PlaySound(click, 0.25) }>
+                    <StyledButton 
+                        as={Link} 
+                        to={"/level/create"}
+                        onClick={ () => PlaySound(click, 0.25) }
+                        state={{ book }}
+                        key={book.number}
+                    >
                         Crear escenario
                         <FiPlus />
                     </StyledButton>
@@ -166,27 +177,6 @@ const ButtonsContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: 1rem;
-`;
-
-export const StyledButton = styled.button<{ disabled?: boolean }>`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    background-color: ${ props => props.disabled ? '#dc3545' : 'grey'};
-    color: white;
-    text-decoration: none;
-    border: 1px solid rgb(0 0 0 / 0.2);
-    cursor: pointer;
-    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-    text-shadow: 1px 1px 1px rgb(0 0 0 / 0.5);
-
-    svg {
-        font-size: 22px;
-    }
 `;
 
 const TextContainer = styled.div`
