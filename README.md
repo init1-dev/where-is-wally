@@ -40,6 +40,8 @@ $npm run dev
 - improve image loading
 - add button to mute sounds
 - Keep adding new scenarios and books
+- implement API integration for user login/register
+- implement guest system to let users play without login
 
 ### KNOWN BUGS:
 - sometimes images doesn't load correctly

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { books } from "../utils/Image";
 import { PlaySound } from "../utils/playSound";
 import { click } from "../assets/sounds";
+import { StyledButton } from "../styles/GeneralStyles";
 
 const MainPage = () => {
     const navigate = useNavigate();
@@ -61,7 +62,7 @@ const MainPage = () => {
                                 style={{borderRadius:'0.5rem'}} 
                             />
 
-                            <StyledButton $disabled={!book.playable}>
+                            <StyledButton disabled={!book.playable}>
                                 {
                                     book.playable
                                         ? book.name
@@ -132,19 +133,6 @@ const ItemImage = styled.img`
     max-height: 25rem;
     object-fit: cover;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-`;
-
-export const StyledButton = styled.button<{ $disabled: boolean }>`
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-    background-color: ${ props => props.$disabled ? '#dc3545' : 'grey' };
-    color: white;
-    text-decoration: none;
-    border: 1px solid rgb(0 0 0 / 0.2);
-    cursor: ${props => props.$disabled ? 'not-allowed' : 'pointer'};
-    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-    text-shadow: 1px 1px 1px rgb(0 0 0 / 0.5);
 `;
 
 const TextContainer = styled.div`

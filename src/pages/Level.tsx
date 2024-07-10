@@ -4,7 +4,7 @@ import { books } from "../utils/Image";
 import { useEffect, useMemo, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
-import { StyledCircleButton } from "../styled/Button";
+import { StyledCircleButton } from "../styles/GeneralStyles";
 import { click } from "../assets/sounds";
 import { Area } from "../interfaces/interfaces";
 import { PlaySound } from "../utils/playSound";
