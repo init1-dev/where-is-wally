@@ -4,9 +4,10 @@ import { PlaySound } from "../utils/playSound";
 import styled from "styled-components";
 import { Book, InputStateProps } from "../interfaces/interfaces";
 import NotFoundComponent from "./NotFound";
-import { FlexCenteredContainer, Input, StyledButton } from "../styles/GeneralStyles";
+import { FlexCenteredContainer, Input, RequiredField, StyledButton } from "../styles/GeneralStyles";
 import { Dispatch, FormEvent, RefObject, SetStateAction, useRef, useState } from "react";
 import CustomFileInput from "../components/Inputs/CustomFileInput";
+import { Toast } from "../utils/alerts/customAlert";
 
 const CreateLevelComponent = () => {
     const navigate = useNavigate();
@@ -41,9 +42,7 @@ const CreateLevelComponent = () => {
         PlaySound(click, 0.25);
 
         if (formRef.current && !formRef.current.checkValidity()) {
-            console.log('incorrecto');
-            formRef.current.reportValidity();
-            return;
+            return formRef.current.reportValidity();
         }
 
         if(nameRef.current && imageRef.current && portraitRef.current){
@@ -53,6 +52,12 @@ const CreateLevelComponent = () => {
 
             if(isNameSet && isImageSet && isPortraitSet){
                 console.log('correcto');
+            } else {
+                Toast.fire({
+                    icon: 'warning',
+                    title: 'Todos los campos deben ser rellenados',
+                    timer: 2500
+                })
             }
         }
     }
@@ -91,7 +96,10 @@ const CreateLevelComponent = () => {
 
             <StyledForm action="" ref={formRef} onSubmit={(e) => handleSubmit(e)}>
                 <InputContainer>
-                    <label htmlFor="nombre">Nombre del nivel:</label>
+                    <label htmlFor="nombre">
+                        <RequiredField>* </RequiredField>
+                        Nombre del nivel:
+                    </label>
 
                     <Input
                         ref={name.ref}

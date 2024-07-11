@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { AiOutlineClear } from "react-icons/ai";
 import styled from "styled-components";
 import { IoImagesOutline } from "react-icons/io5";
-import { FlexCenteredContainer, StyledButton } from "../../styles/GeneralStyles";
+import { FlexCenteredContainer, RequiredField, StyledButton } from "../../styles/GeneralStyles";
 import { CustomFileInputProps } from "../../interfaces/interfaces";
 
 const CustomFileInput = ({
@@ -29,7 +29,10 @@ const CustomFileInput = ({
 
     return (
         <FileInputContainer>
-            <label htmlFor={label.htmlFor}>{label.label}:</label>
+            <label htmlFor={label.htmlFor}>
+                { required && <RequiredField>* </RequiredField> }
+                {label.label}:
+            </label>
 
             <ButtonsContainer>
                 <HiddenFileInput 
@@ -38,6 +41,7 @@ const CustomFileInput = ({
                     type="file" 
                     onChange={handleFileChange}
                     required={required}
+                    autoComplete="off"
                 />
 
                 <Button onClick={(e) => handleClickInput(e)} $filled={isFileSet} $touched={inputState.touched}>

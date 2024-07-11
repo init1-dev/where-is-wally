@@ -67,3 +67,7 @@ export const Input = styled.input<{ $touched?: boolean, $value: string }>`
         outline: unset;
     }
 `;
+
+export const RequiredField = styled.span`
+    color: red;
+`;
