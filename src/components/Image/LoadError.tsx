@@ -1,10 +1,7 @@
 import styled from "styled-components";
-import { StyledButton } from "../../pages/BookView";
 import { VscDebugRestart } from "react-icons/vsc";
-
-interface LoadErrorProps {
-    reloadImg: () => void;
-}
+import { StyledButton } from "../../styles/GeneralStyles";
+import { LoadErrorProps } from "../../interfaces/interfaces";
 
 const LoadError = ({
     reloadImg

@@ -1,9 +1,5 @@
 import styled from "styled-components";
-
-interface ThemeButtonProps {
-    theme: string;
-    handleToggleTheme: () => void;
-}
+import { ThemeButtonProps } from "../../interfaces/interfaces";
 
 const ThemeButton = ({ theme, handleToggleTheme }: ThemeButtonProps) => {
     return (

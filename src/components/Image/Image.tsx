@@ -1,14 +1,6 @@
-import { Dispatch, RefObject, SetStateAction } from 'react';
-import { Area } from '../../interfaces/interfaces';
+import { ImageProps } from '../../interfaces/interfaces';
 import Areas from './Areas';
 import styled from 'styled-components';
-
-interface ImageProps {
-    image: string;
-    imageAreas: Area[];
-    setImageAreas: Dispatch<SetStateAction<Area[]>>;
-    imgRef: RefObject<HTMLImageElement>;
-}
 
 const Image = ({
     image,

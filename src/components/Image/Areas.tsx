@@ -1,12 +1,6 @@
 import styled from "styled-components";
-import { Area } from "../../interfaces/interfaces";
+import { Area, AreasProps } from "../../interfaces/interfaces";
 import { Alert } from "../../utils/alerts/customAlert";
-import { Dispatch, SetStateAction } from "react";
-
-interface AreasProps {
-    imageAreas: Area[];
-    setImageAreas: Dispatch<SetStateAction<Area[]>>;
-}
 
 const Areas = ({
     imageAreas,

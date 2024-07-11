@@ -1,15 +1,6 @@
 import styled from "styled-components";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
-import { PanzoomObject } from "@panzoom/panzoom";
-import { Dispatch, SetStateAction } from "react";
-
-interface ZoomComponentProps {
-    panzoom: PanzoomObject | null;
-    maxScale: number;
-    minScale: number;
-    scale: number;
-    setScale: Dispatch<SetStateAction<number>>;
-}
+import { ZoomComponentProps } from "../../interfaces/interfaces";
 
 function ZoomComponent({
     panzoom,

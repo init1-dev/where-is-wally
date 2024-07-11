@@ -1,16 +1,10 @@
 import styled from "styled-components";
-import { Area } from "../../interfaces/interfaces";
+import { SideMenuProps } from "../../interfaces/interfaces";
 import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { LuBookMarked } from "react-icons/lu";
 import { click } from "../../assets/sounds";
 import { StyledCircleButton } from "../../styles/GeneralStyles";
-
-interface SideMenuProps {
-    imageAreas: Area[];
-    PlaySound: (sound: string, volume?: number) => void;
-    levelName: string;
-}
 
 const SideMenuComponent = ({
     imageAreas,

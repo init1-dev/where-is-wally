@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { click } from "../assets/sounds";
 import { PlaySound } from "../utils/playSound";
 import styled from "styled-components";
-import { Book } from "../interfaces/interfaces";
+import { Book, InputStateProps } from "../interfaces/interfaces";
 import NotFoundComponent from "./NotFound";
 import { FlexCenteredContainer, Input, StyledButton } from "../styles/GeneralStyles";
 import { Dispatch, FormEvent, RefObject, SetStateAction, useRef, useState } from "react";
@@ -11,13 +11,14 @@ import CustomFileInput from "../components/Inputs/CustomFileInput";
 const CreateLevelComponent = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [isNameSet, setIsNameSet] = useState(false);
-    const [isImageSet, setIsImageSet] = useState(false);
-    const [isPortraitSet, setIsPortraitSet] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const nameRef = useRef<HTMLInputElement>(null);
     const imageRef = useRef<HTMLInputElement>(null);
     const portraitRef = useRef<HTMLInputElement>(null);
+    const [name, setName] = useState<InputStateProps>({ref: nameRef, touched: false, value: ''});
+    const [image, setImage] = useState({ref: imageRef, touched: false, value: ''});
+    const [portrait, setPortrait] = useState({ref: portraitRef, touched: false, value: ''});
+    
     const { book } = location.state as { book: Book } || { book: null }
 
     const handleReturn = () => {
@@ -25,18 +26,14 @@ const CreateLevelComponent = () => {
         navigate(-1);
     }
 
-    const handleInputChange = (inputRef: RefObject<HTMLInputElement>, setInputFunction: Dispatch<SetStateAction<boolean>>) => {
-        if(inputRef.current?.value !== ''){
-            setInputFunction(true);
-        } else {
-            setInputFunction(false);
-        }
+    const handleInputChange = (e: FormEvent<HTMLInputElement>, setStateFunction: Dispatch<SetStateAction<InputStateProps>>) => {
+        const { value } = e.currentTarget;
+        setStateFunction(prev => ({...prev, value, touched: true }));
     }
 
-    const handleImageChange = (inputRef: RefObject<HTMLInputElement>, setImageFunction: Dispatch<SetStateAction<boolean>>) => {
-        if (inputRef.current) {
-            setImageFunction(inputRef.current.value !== '');
-        }
+    const handleImageChange = (e: FormEvent<HTMLInputElement>, setImageFunction: Dispatch<SetStateAction<InputStateProps>>) => {
+        const { value } = e.currentTarget;
+        setImageFunction(prev => ({...prev, value, touched: true}));
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -61,16 +58,17 @@ const CreateLevelComponent = () => {
     }
 
     const handleClearInput = (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>, 
-        inputRef: RefObject<HTMLInputElement>,
-        setFilled: Dispatch<SetStateAction<boolean>>
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        ref: RefObject<HTMLInputElement>,
+        setInputState: Dispatch<SetStateAction<InputStateProps>>
     ) => {
         e.preventDefault();
 
-        if(inputRef.current && inputRef.current.value !== ''){
-            inputRef.current.value = '';
-            setFilled(false);
+        if(ref.current){
+            ref.current.value = '';
         }
+
+        setInputState(prev => ({...prev, value: '', touched: true}));
     }
 
     if (!book) {
@@ -96,21 +94,22 @@ const CreateLevelComponent = () => {
                     <label htmlFor="nombre">Nombre del nivel:</label>
 
                     <Input
-                        ref={nameRef}
+                        ref={name.ref}
                         type="text"
                         name="nombre"
-                        onChange={() => handleInputChange(nameRef, setIsNameSet)}
-                        $filled={isNameSet}
+                        onChange={(e) => handleInputChange(e, setName)}
+                        $touched={name.touched}
+                        $value={name.value}
                         required
                     />
                 </InputContainer>
 
                 <InputContainer>
                     <CustomFileInput
-                        inputRef={imageRef}
-                        isFileSet={isImageSet}
-                        handleChange={() => handleImageChange(imageRef, setIsImageSet)}
-                        handleClearInput={(e) => handleClearInput(e, imageRef, setIsImageSet)}
+                        inputState={image}
+                        isFileSet={image.value !== ''}
+                        handleChange={(e) => handleImageChange(e, setImage)}
+                        handleClearInput={(e) => handleClearInput(e, image.ref, setImage)}
                         label={{htmlFor: 'image', label: 'Imagen del nivel'}}
                         required
                     />
@@ -118,10 +117,10 @@ const CreateLevelComponent = () => {
 
                 <InputContainer>
                     <CustomFileInput
-                        inputRef={portraitRef}
-                        isFileSet={isPortraitSet}
-                        handleChange={() => handleImageChange(portraitRef, setIsPortraitSet)}
-                        handleClearInput={(e) => handleClearInput(e, portraitRef, setIsPortraitSet)}
+                        inputState={portrait}
+                        isFileSet={portrait.value !== ''}
+                        handleChange={(e) => handleImageChange(e, setPortrait)}
+                        handleClearInput={(e) => handleClearInput(e, portrait.ref, setPortrait)}
                         label={{htmlFor: 'portrait', label: 'Imagen de portada'}}
                         required
                     />
@@ -190,7 +189,7 @@ const StyledForm = styled.form`
 
 const InputContainer = styled(FlexCenteredContainer)`
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.5rem;
 `;
 
 const NextButton = styled(StyledButton)`
