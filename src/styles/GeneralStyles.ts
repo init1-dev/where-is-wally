@@ -52,8 +52,17 @@ export const StyledCircleButton = styled(StyledInteractiveButton)`
     border-radius: 50%;
 `;
 
-export const Input = styled.input`
+export const Input = styled.input<{ $filled?: boolean }>`
+    width: 90%;
     border: 1px solid grey;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    border: 1px solid ${props => props.$filled ? 'var(--success)' : 'var(--danger)'};
+    background-color: var(--secondary);
+    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
+
+    &:focus, &:focus-visible {
+        border: 1px solid var(--info);
+        outline: unset;
+    }
 `;
