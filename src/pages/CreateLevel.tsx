@@ -51,7 +51,16 @@ const CreateLevelComponent = () => {
             const isPortraitSet = portraitRef.current.value !== '';
 
             if(isNameSet && isImageSet && isPortraitSet){
-                console.log('correcto');
+                navigate(`/book/${book.number}/map`, {
+                    state: {
+                        book: book,
+                        newLevel: {
+                            name: nameRef.current.value,
+                            image: imageRef.current.value,
+                            portrait: portraitRef.current.value
+                        }
+                    }
+                });
             } else {
                 Toast.fire({
                     icon: 'warning',

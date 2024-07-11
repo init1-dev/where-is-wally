@@ -13,7 +13,7 @@ import { FiPlus } from "react-icons/fi";
 import { StyledButton } from "../styles/GeneralStyles";
 
 const BookView = () => {
-    const { id } = useParams<{ id: string }>();
+    const { bookId } = useParams<{ bookId: string }>();
     const [ book, setBook ] = useState<Book | undefined>(undefined);
     const navigate = useNavigate();
 
@@ -30,8 +30,8 @@ const BookView = () => {
     };
     
     useEffect(() => {
-        handleBookLoading(id);
-    }, [id, navigate]);
+        handleBookLoading(bookId);
+    }, [bookId, navigate]);
     
     if (!book) {
         return <NotFoundComponent />
@@ -39,13 +39,13 @@ const BookView = () => {
 
     return (
         <MainPageContainer>
-            <h1>{`Libro ${book?.number}: ${book?.name}`}</h1>
+            <h1>{`Libro ${book.number}: ${book.name}`}</h1>
 
             <TextContainer>
                 <ButtonsContainer>
                     <StyledButton 
                         as={Link} 
-                        to={"/"} 
+                        to={"/main"} 
                         onClick={ () => PlaySound(click, 0.25) }
                     >
                         <MdArrowBack />
@@ -54,10 +54,9 @@ const BookView = () => {
 
                     <StyledButton 
                         as={Link} 
-                        to={"/level/create"}
+                        to={`/book/${bookId}/create`}
                         onClick={ () => PlaySound(click, 0.25) }
                         state={{ book }}
-                        key={book.number}
                     >
                         Crear escenario
                         <FiPlus />
@@ -80,7 +79,7 @@ const BookView = () => {
                                         disabled={ !scenario.playable }
                                         onClick={ 
                                             scenario.playable
-                                                ? () => navigate(`/level/${book.number}/${scenario.id}`)
+                                                ? () => navigate(`/book/${bookId}/${scenario.id}`)
                                                 : undefined
                                         }
                                     >
