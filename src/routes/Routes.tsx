@@ -3,45 +3,59 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout";
 
 import { MainPage, LevelComponent, BookView, CreateLevelComponent } from "../pages/pagesModule";
+import MapLevel from "../pages/MapLevel";
 
 const ROUTES = {
     ROOT: "/",
-    MAIN: "/main",
-    BOOK: "/book/:id",
-    CREATE_LEVEL: "/level/create",
-    LEVEL: "/level/:bookId/:levelId",
+    MAIN: "main",
+    BOOK: {
+        ROOT: 'book',
+        LIST: ":bookId",
+        LEVEL: ":bookId/:levelId",
+        CREATE: ":bookId/create",
+        MAP: ":bookId/map"
+    },
     NOT_FOUND: "*"
 };
 
 const router = createBrowserRouter([
     {
         id: "root",
-        path: ROUTES.ROOT,
+        path: "/",
         element: <Layout />,
         children: [
             {
-                path: ROUTES.ROOT,
-                element: <Navigate to="/main" replace />
+                path: "",
+                element: <Navigate to={ROUTES.MAIN} replace />
             },
             {
                 path: ROUTES.MAIN,
                 element: <MainPage />
             },
             {
-                path: ROUTES.BOOK,
-                element: <BookView />
-            },
-            {
-                path: ROUTES.CREATE_LEVEL,
-                element: <CreateLevelComponent />
-            },
-            {
-                path: ROUTES.LEVEL,
-                element: <LevelComponent />
+                path: ROUTES.BOOK.ROOT,
+                children: [
+                    {
+                        path: ROUTES.BOOK.LIST,
+                        element: <BookView />,
+                    },
+                    {
+                        path: ROUTES.BOOK.LEVEL,
+                        element: <LevelComponent />
+                    },
+                    {
+                        path: ROUTES.BOOK.CREATE,
+                        element: <CreateLevelComponent />
+                    },
+                    {
+                        path: ROUTES.BOOK.MAP,
+                        element: <MapLevel />
+                    },
+                ]
             },
             {
                 path: ROUTES.NOT_FOUND,
-                element: <Navigate to="/main" replace />
+                element: <Navigate to={ROUTES.MAIN} replace />
             }
         ]
     }

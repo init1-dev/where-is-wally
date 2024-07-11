@@ -90,3 +90,9 @@ export interface SideMenuProps {
     PlaySound: (sound: string, volume?: number) => void;
     levelName: string;
 }
+
+export interface NewLevel {
+    name: string;
+    image: string;
+    portrait: string;
+} 

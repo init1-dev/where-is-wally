@@ -33,7 +33,6 @@ const LevelComponent = () => {
                 }
             }
         }
-        navigate('/main');
         return { book: undefined, currentScenario: null, initialImageAreas: [] };
     }, [bookId, levelId, navigate]);
 
