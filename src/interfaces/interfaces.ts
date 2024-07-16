@@ -13,7 +13,7 @@ export interface InteractiveImageProps {
     image: string;
     imageAreas: Area[];
     setImageAreas: Dispatch<SetStateAction<Area[]>> | undefined;
-    levelName: string;
+    setFound: Dispatch<SetStateAction<number>>;
 }
 
 export interface Scenario {
@@ -61,11 +61,13 @@ export interface ImageProps {
     imageAreas: Area[];
     setImageAreas: Dispatch<SetStateAction<Area[]>>;
     imgRef: RefObject<HTMLImageElement>;
+    setFound: Dispatch<SetStateAction<number>>;
 }
 
 export interface AreasProps {
     imageAreas: Area[];
     setImageAreas: Dispatch<SetStateAction<Area[]>>;
+    setFound: Dispatch<SetStateAction<number>>;
 }
 
 export interface LoadErrorProps {
@@ -89,6 +91,7 @@ export interface SideMenuProps {
     imageAreas: Area[];
     PlaySound: (sound: string, volume?: number) => void;
     levelName: string;
+    found: number;
 }
 
 export interface NewLevel {

@@ -9,10 +9,12 @@ import { click } from "../assets/sounds";
 import { Area } from "../interfaces/interfaces";
 import { PlaySound } from "../utils/playSound";
 import NotFoundComponent from "./NotFound";
+import SideMenuComponent from "../components/sideMenu/SideMenuComponent";
 
 const LevelComponent = () => {
     const { bookId, levelId } = useParams<{bookId: string, levelId: string}>();
     const [ imageAreas, setImageAreas ] = useState<Area[]>([]);
+    const [ found, setFound ] = useState<number>(0);
     
     const navigate = useNavigate();
 
@@ -58,16 +60,19 @@ const LevelComponent = () => {
                         </StyledCircleButton>
                     </TextContainer>
                 
-                    {
-                        imageAreas && (
-                            <InteractiveImage 
-                                image={currentScenario.image}
-                                imageAreas={imageAreas} 
-                                setImageAreas={setImageAreas}
-                                levelName={currentScenario.name}
-                            />
-                        )
-                    }
+                    <InteractiveImage 
+                        image={currentScenario.image}
+                        imageAreas={imageAreas} 
+                        setImageAreas={setImageAreas}
+                        setFound={setFound}
+                    />
+
+                    <SideMenuComponent 
+                        imageAreas={imageAreas} 
+                        PlaySound={PlaySound} 
+                        levelName={currentScenario.name} 
+                        found={found}
+                    />
                 </MainPageContainer>
             : 'loading'
     );

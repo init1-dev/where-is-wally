@@ -6,7 +6,8 @@ const Image = ({
     image,
     imageAreas, 
     setImageAreas,
-    imgRef
+    imgRef,
+    setFound
 }: ImageProps) => {
     
     return (
@@ -21,6 +22,7 @@ const Image = ({
             <Areas
                 imageAreas={imageAreas}
                 setImageAreas={setImageAreas}
+                setFound={setFound}
             />
         </div>
     );

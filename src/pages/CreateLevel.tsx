@@ -20,7 +20,7 @@ const CreateLevelComponent = () => {
     const [image, setImage] = useState({ref: imageRef, touched: false, value: ''});
     const [portrait, setPortrait] = useState({ref: portraitRef, touched: false, value: ''});
     
-    const { book } = location.state as { book: Book } || { book: null }
+    const { book } = location.state as { book: Book } || { book: null };
 
     const handleReturn = () => {
         PlaySound(click, 0.25);

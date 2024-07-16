@@ -13,13 +13,13 @@ export const aeropuerto: Scenario = {
             shape: "rect",
             found: false
         },
-        {
-            description: "Un platillo volante",
-            alt: "platillo-volante",
-            coords: "28,39,114,86",
-            shape: "rect",
-            found: false
-        },
+        // {
+        //     description: "Un platillo volante",
+        //     alt: "platillo-volante",
+        //     coords: "28,39,114,86",
+        //     shape: "rect",
+        //     found: false
+        // },
         {
             description: "Un niño que se ha escondido dentro de una maleta",
             alt: "niño-escondido-maleta",
@@ -83,13 +83,13 @@ export const aeropuerto: Scenario = {
             shape: "rect",
             found: false
         },
-        {
-            description: "Unos calcetines que se han salido de una maleta",
-            alt: "calcetines-maleta",
-            coords: "27,899,74,923",
-            shape: "rect",
-            found: false
-        },
+        // {
+        //     description: "Unos calcetines que se han salido de una maleta",
+        //     alt: "calcetines-maleta",
+        //     coords: "27,899,74,923",
+        //     shape: "rect",
+        //     found: false
+        // },
         {
             description: "Un helicóptero que ha roto unas banderas",
             alt: "helicoptero-banderas",

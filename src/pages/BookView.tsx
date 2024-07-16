@@ -10,7 +10,7 @@ import NotFoundComponent from "./NotFound";
 import FutureBook from "./FutureBook";
 import { MdArrowBack } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
-import { StyledButton } from "../styles/GeneralStyles";
+import { FlexCenteredContainer, FlexContainer, GridContainer, ImageContainer, ItemImage, Paragraph, StyledButton } from "../styles/GeneralStyles";
 
 const BookView = () => {
     const { bookId } = useParams<{ bookId: string }>();
@@ -71,10 +71,10 @@ const BookView = () => {
 
             {
                 book.scenarios.length > 0
-                    ?   <GridContainer>
+                    ?   <StyledGridContainer>
                             {
                                 book.scenarios.map((scenario, i) =>
-                                    <ImageContainer 
+                                    <StyledImageContainer 
                                         key={i} 
                                         disabled={ !scenario.playable }
                                         onClick={ 
@@ -82,6 +82,7 @@ const BookView = () => {
                                                 ? () => navigate(`/book/${bookId}/${scenario.id}`)
                                                 : undefined
                                         }
+                                        scale={1.03}
                                     >
                                         <ScenarioTitle>{scenario.name }</ScenarioTitle>
             
@@ -98,10 +99,10 @@ const BookView = () => {
                                                     : 'En el futuro'
                                             }
                                         </StyledButton>
-                                    </ImageContainer>
+                                    </StyledImageContainer>
                                 )
                             }
-                        </GridContainer>
+                        </StyledGridContainer>
                     :   <FutureBook />
             }
             
@@ -110,8 +111,7 @@ const BookView = () => {
     );
 }
 
-const MainPageContainer = styled.div`
-    display: flex;
+const MainPageContainer = styled(FlexContainer)`
     gap: 1.5rem;
     flex-direction: column;
     align-items: center;
@@ -121,12 +121,9 @@ const MainPageContainer = styled.div`
     }
 `;
 
-const GridContainer = styled.div`
-    width: 90%;
-    padding: 1rem 2rem 2rem 2rem;
-    display: grid;
+const StyledGridContainer = styled(GridContainer)`
     gap: 1.5rem;
-    grid-template-columns: repeat(1, 1fr);
+    margin-bottom: 2rem;
 
     @media(min-width: 750px)  {
         grid-template-columns: repeat(2, 1fr);
@@ -141,22 +138,8 @@ const GridContainer = styled.div`
     }
 `;
 
-const ImageContainer = styled.div<{ disabled?: boolean }>`
-    display: flex;
-    flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
-    background-color: #31394f;
-    border-radius: 0.5rem;
-    padding: 1rem;
+const StyledImageContainer = styled(ImageContainer)<{ disabled?: boolean }>`
     cursor: ${ props => props.disabled ? 'not-allowed' : 'pointer' };
-
-    @media(min-width: 1000px)  {
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.03);
-        }
-    }
 `;
 
 const ScenarioTitle = styled.p`
@@ -165,36 +148,17 @@ const ScenarioTitle = styled.p`
     font-weight: bold;
 `;
 
-const ItemImage = styled.img`
-    aspect-ratio: 9/16;
-    max-height: 25rem;
-    object-fit: cover;
-    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-`;
-
-const ButtonsContainer = styled.div`
-    display: flex;
-    justify-content: center;
+const ButtonsContainer = styled(FlexCenteredContainer)`
     gap: 1rem;
 `;
 
-const TextContainer = styled.div`
-    display: flex;
+const TextContainer = styled(FlexContainer)`
     flex-direction: column;
     max-width: 90%;
     gap: 2rem;
 
     @media(min-width: 750px)  {
         max-width: 80%;
-    }
-`;
-
-const Paragraph = styled.p`
-    margin: 0;
-    text-align: justify;
-
-    @media(min-width: 750px)  {
-        text-align: unset;
     }
 `;
 

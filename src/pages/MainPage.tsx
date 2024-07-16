@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { books } from "../utils/Image";
 import { PlaySound } from "../utils/playSound";
 import { click } from "../assets/sounds";
-import { StyledButton } from "../styles/GeneralStyles";
+import { FlexCenteredContainer, FlexContainer, GridContainer, ImageContainer, ItemImage, Paragraph, StyledButton } from "../styles/GeneralStyles";
 
 const MainPage = () => {
     const navigate = useNavigate();
@@ -44,17 +44,17 @@ const MainPage = () => {
                 </FlexParagraph>
             </TextContainer>
 
-            <GridContainer>
+            <StyledGridContainer>
                 {
                     books.map((book, i) =>
-                        <ImageContainer 
+                        <StyledImageContainer 
                             key={i} 
                             onClick={ 
                                 book.playable 
                                     ? () => handleNavigateToBook(book.number)
                                     : undefined
                             }
-                            $disabled={!book.playable}
+                            disabled={!book.playable}
                         >
                             <ItemImage 
                                 src={book.portrait}
@@ -69,89 +69,52 @@ const MainPage = () => {
                                         : 'En el futuro'
                                 }
                             </StyledButton>
-                        </ImageContainer>
+                        </StyledImageContainer>
                     )
                 }
-            </GridContainer>
+            </StyledGridContainer>
             
         </MainPageContainer>
     );
 };
 
-const MainPageContainer = styled.div`
-    display: flex;
+const MainPageContainer = styled(FlexCenteredContainer)`
     gap: 1.5rem;
     flex-direction: column;
-    align-items: center;
 
     h1 {
         margin-top: 2rem;
     }
 `;
 
-const GridContainer = styled.div`
-    width: 90%;
-    padding: 1rem 2rem 2rem 2rem;
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(1, 1fr);
+const StyledGridContainer = styled(GridContainer)`
+    margin-bottom: 2rem;
 
-    @media(min-width: 750px)  {
+    @media(min-width: 750px) {
         grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
         width: unset;
     }
 
-    @media(min-width: 1000px)  {
+    @media(min-width: 1000px) {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
         width: unset;
     }
 `;
 
-const ImageContainer = styled.div<{ $disabled: boolean }>`
-    display: flex;
-    flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -2px 0px inset;
-    background-color: #31394f;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    pointer-events: ${props => props.$disabled ? 'hover' : ''};
-    cursor: ${props => props.$disabled ? 'not-allowed' : 'pointer'};
-
-    @media(min-width: 1000px)  {
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
+const StyledImageContainer = styled(ImageContainer)<{ disabled?: boolean }>`
+    pointer-events: ${props => props.disabled ? 'hover' : ''};
+    cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
 `;
 
-const ItemImage = styled.img`
-    aspect-ratio: 9/16;
-    max-height: 25rem;
-    object-fit: cover;
-    filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
-`;
-
-const TextContainer = styled.div`
-    display: flex;
+const TextContainer = styled(FlexContainer)`
     flex-direction: column;
     max-width: 90%;
     gap: 1rem;
 
     @media(min-width: 750px)  {
         max-width: 80%;
-    }
-`;
-
-const Paragraph = styled.p`
-    margin: 0;
-    text-align: justify;
-
-    @media(min-width: 750px)  {
-        text-align: unset;
     }
 `;
 

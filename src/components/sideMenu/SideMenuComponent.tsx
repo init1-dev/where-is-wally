@@ -4,12 +4,13 @@ import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { LuBookMarked } from "react-icons/lu";
 import { click } from "../../assets/sounds";
-import { StyledCircleButton } from "../../styles/GeneralStyles";
+import { FlexCenteredContainer, FlexContainer, H2, StyledCircleButton } from "../../styles/GeneralStyles";
 
 const SideMenuComponent = ({
     imageAreas,
     PlaySound,
-    levelName
+    levelName,
+    found
 }: SideMenuProps) => {
     const [ isOpen, setIsOpen ] = useState(false);
 
@@ -21,13 +22,17 @@ const SideMenuComponent = ({
     return (
         <>
             <SideMenu $isOpen={isOpen}>
-                <Title>
-                    { levelName }
+                <TopBar>
+                    <TopBarTextContainer>
+                        <H2>{levelName}</H2>
+
+                        <small>({`${found}/${imageAreas.length}`})</small>
+                    </TopBarTextContainer>
 
                     <StyledCircleButton onClick={handleOpen} >
                         <RiCloseLargeFill />
                     </StyledCircleButton>
-                </Title>
+                </TopBar>
 
                 <hr />
 
@@ -73,19 +78,26 @@ const SideMenu = styled.div<{ $isOpen: boolean }>`
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 
     hr {
-        width: 100%;
+        width: 99.5%;
         border-top: 1px solid rgba(0, 0, 0, 0.2);
     }
 `;
 
-const Title = styled.h2`
-    display: flex;
+const TopBar = styled(FlexContainer)`
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
     padding-left: 1rem;
     margin: 0.5rem;
     color: black;
+`;
+
+const TopBarTextContainer = styled(FlexCenteredContainer)`
+    gap: 1rem;
+
+    small {
+        font-size: 16px;
+    }
 `;
 
 const List = styled.ul`
