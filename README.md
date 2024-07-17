@@ -43,7 +43,6 @@ $npm run dev
 - implement guest system to let users play without login
 
 ### KNOWN BUGS:
-- sometimes images doesn't load correctly
 - zoom bug, functionality disabled temporarily
 
 ### TODO:

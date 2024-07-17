@@ -10,11 +10,13 @@ import { Area } from "../interfaces/interfaces";
 import { PlaySound } from "../utils/playSound";
 import NotFoundComponent from "./NotFound";
 import SideMenuComponent from "../components/sideMenu/SideMenuComponent";
+import Loader from "../components/Image/Loader";
 
 const LevelComponent = () => {
     const { bookId, levelId } = useParams<{bookId: string, levelId: string}>();
     const [ imageAreas, setImageAreas ] = useState<Area[]>([]);
     const [ found, setFound ] = useState<number>(0);
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
     
     const navigate = useNavigate();
 
@@ -47,12 +49,33 @@ const LevelComponent = () => {
         navigate(`/book/${bookId}`, {replace:true});
     }
 
+    useEffect(() => {
+        const loadImage = async () => {
+            try {
+                const response = await fetch(currentScenario!.image);
+
+                if (!response.ok) {
+                    throw new Error('Failed to load image');
+                }
+                const blob = await response.blob();
+                setImageUrl(URL.createObjectURL(blob));
+            } catch (error) {
+                console.error('Error loading image:', error);
+            }
+        };
+    
+        if (currentScenario && currentScenario.image) {
+            loadImage();
+        }
+    }, [currentScenario]);
+    
+
     if (!book || !currentScenario) {
         return <NotFoundComponent />;
     }
 
     return (
-        currentScenario.image && imageAreas.length > 0
+        imageUrl && imageAreas.length > 0
             ?   <MainPageContainer>
                     <TextContainer>
                         <StyledCircleButton onClick={handleReturn}>
@@ -61,7 +84,7 @@ const LevelComponent = () => {
                     </TextContainer>
                 
                     <InteractiveImage 
-                        image={currentScenario.image}
+                        image={imageUrl}
                         imageAreas={imageAreas} 
                         setImageAreas={setImageAreas}
                         setFound={setFound}
@@ -74,7 +97,9 @@ const LevelComponent = () => {
                         found={found}
                     />
                 </MainPageContainer>
-            : 'loading'
+            :   <LoaderBox>
+                    <Loader />
+                </LoaderBox>
     );
 };
 
@@ -89,6 +114,11 @@ const TextContainer = styled.div`
     z-index: 1;
     border-radius: 0.5rem;
     filter: drop-shadow(1px 1px 5px rgb(0 0 0 / 0.2));
+`;
+
+const LoaderBox = styled.div`
+    width: 100vw;
+    height: 100vh;
 `;
 
 export default LevelComponent;
