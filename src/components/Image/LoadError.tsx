@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { VscDebugRestart } from "react-icons/vsc";
-import { StyledButton } from "../../styles/GeneralStyles";
+import { FlexCenteredContainer, StyledButton } from "../../styles/GeneralStyles";
 import { LoadErrorProps } from "../../interfaces/interfaces";
 
 const LoadError = ({
@@ -18,13 +18,10 @@ const LoadError = ({
     );
 }
 
-const ErrorMessage = styled.div`
+const ErrorMessage = styled(FlexCenteredContainer)`
     width: 100%;
     height: 100%;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 `;
 
 export default LoadError;

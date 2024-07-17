@@ -60,14 +60,13 @@ const SideMenuComponent = ({
     );
 }
 
-const SideMenu = styled.div<{ $isOpen: boolean }>`
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px;
+const SideMenu = styled(FlexContainer)<{ $isOpen: boolean }>`
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 2;
+    flex-direction: column;
+    margin-left: 10px;
     max-height: 80%;
     background-color: white;
     border-radius: 0.5rem;
