@@ -35,7 +35,6 @@ $npm run dev
 ```
 
 ## Next Updates
-- general refactor
 - new scenario clues system to improve scenario creating process
 - improve image loading
 - add button to mute sounds
