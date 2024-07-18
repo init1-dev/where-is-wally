@@ -11,10 +11,13 @@ import FutureBook from "./FutureBook";
 import { MdArrowBack } from "react-icons/md";
 import { FiPlus } from "react-icons/fi";
 import { FlexCenteredContainer, FlexContainer, GridContainer, ImageContainer, ItemImage, Paragraph, StyledButton } from "../styles/GeneralStyles";
+import { BiSolidArrowToTop } from "react-icons/bi";
+import { toTop } from "../utils/functionsModule";
 
 const BookView = () => {
     const { bookId } = useParams<{ bookId: string }>();
     const [ book, setBook ] = useState<Book | undefined>(undefined);
+    const [showScrollButton, setShowScrollButton] = useState(false);
     const navigate = useNavigate();
 
     const handleBookLoading = (id: string | undefined) => {
@@ -28,6 +31,24 @@ const BookView = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const MIN_SCROLL = 250;
+
+        const handleScroll = () => {
+            if (window.scrollY > MIN_SCROLL) {
+                setShowScrollButton(true);
+            } else {
+                setShowScrollButton(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     
     useEffect(() => {
         handleBookLoading(bookId);
@@ -89,7 +110,13 @@ const BookView = () => {
                                         }
                                         scale={1.03}
                                     >
-                                        <ScenarioTitle>{scenario.name }</ScenarioTitle>
+                                        <ScenarioTitle>
+                                            {scenario.name}
+
+                                            <small>
+                                                {` (${scenario.id}/${book.scenarios.length})`}
+                                            </small>
+                                        </ScenarioTitle>
             
                                         <ItemImage 
                                             src={scenario.portrait || header}
@@ -107,6 +134,12 @@ const BookView = () => {
                                     </StyledImageContainer>
                                 )
                             }
+                            <StyledToTop 
+                                $show={showScrollButton} 
+                                onClick={() => toTop("smooth")}
+                            >
+                                <BiSolidArrowToTop />
+                            </StyledToTop>
                         </StyledGridContainer>
                     :   <FutureBook />
             }
@@ -155,6 +188,39 @@ const ScenarioTitle = styled.p`
 
 const ButtonsContainer = styled(FlexCenteredContainer)`
     gap: 1rem;
+`;
+
+const StyledToTop = styled(StyledButton)<{$show: boolean}>`
+    transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease;
+    opacity: ${ props => props.$show ? '1' : '0'};
+    pointer-events: ${ props => props.$show ? 'all' : 'none'};
+    position: fixed;
+    bottom: 0rem;
+    left: calc(50% - 2.5rem);
+    transform: translateX(calc(-50% - 2.5rem));
+    transform: translateY(2.5rem);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 25% 25% 0 0;
+
+    svg {
+        transition: font-size 0.2s ease;
+        font-size: 25px;
+    }
+
+    @media(min-width: 750px)  {
+        &:hover {
+            transform: translateY(2rem);
+
+            svg {
+                font-size: 30px;
+            }
+        }
+    }
 `;
 
 const TextContainer = styled(FlexContainer)`
