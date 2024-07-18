@@ -34,7 +34,8 @@ export const handleSounds = (
                 confirmButtonText: 'Volver'
             }).then((result) => {
                 if(result.isConfirmed){
-                    navigate(-1)
+                    navigate(-1);
+                    document.exitFullscreen();
                 }
             })
         } else {
