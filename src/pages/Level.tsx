@@ -50,7 +50,9 @@ const LevelComponent = () => {
     const handleReturn = () => {
         PlaySound(click, 0.25);
         navigate(`/book/${bookId}`, {replace:true});
-        document.exitFullscreen();
+        if (document.fullscreenEnabled && document.fullscreenElement) {
+            document.exitFullscreen();
+        }
     }
 
     // useEffect(() => {

@@ -3,31 +3,35 @@ import { BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { ZoomComponentProps } from "../../interfaces/interfaces";
 
 function ZoomComponent({
+    scale,
     zoomIn,
     zoomOut,
-    // maxScale,
-    // minScale,
+    maxScale,
+    minScale,
+    handleZoom
     // scale,
     // setScale
 }: ZoomComponentProps) {
 
     const handleZoomIn = () => {
+        handleZoom();
         zoomIn();
     };
 
     const handleZoomOut = () => {
+        handleZoom();
         zoomOut();
     };
 
     return (
         <ZoomContainer>
-            <Button onClick={handleZoomIn} disabled={ false } >
+            <Button onClick={handleZoomIn} disabled={ scale >= maxScale } >
                 <BsZoomIn />
             </Button>
 
             <StyledSeparator />
 
-            <Button onClick={handleZoomOut} disabled={ false } >
+            <Button onClick={handleZoomOut} disabled={ scale <= minScale } >
                 <BsZoomOut />
             </Button>
         </ZoomContainer>

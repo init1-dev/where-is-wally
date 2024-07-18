@@ -1,11 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { InteractiveImageProps } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Image from "./Image";
 import ZoomComponent from "./ZoomComponent";
 import { checkAllFound, handleSounds } from "../../utils/functionsModule";
-import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+import { ReactZoomPanPinchContentRef, TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const InteractiveImage = ({
     image,
@@ -16,32 +16,45 @@ const InteractiveImage = ({
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
     const imgRef = useRef<HTMLImageElement>(null);
+    const transformComponentRef = useRef<ReactZoomPanPinchContentRef>(null);
 
     const mobile = window.innerWidth <= 768;
     const minScale = mobile ? 0.6 : 0.8;
     const maxScale = 2;
     const initialScale = mobile ? minScale : 1;
 
-    // const [scale, setScale] = useState<number>(initialScale);
+    const [scale, setScale] = useState<number>(initialScale);
 
     useEffect(() => {
         handleSounds(isFirstRender, checkAllFound, navigate, imageAreas);
     }, [imageAreas]);
 
+    const handleZoom = () => {
+        const currentScale = transformComponentRef.current?.instance.transformState.scale;
+        setScale(currentScale!);
+    };
+
     return (
         <ImageContainer>
             <TransformWrapper 
+                ref={transformComponentRef}
                 initialScale={initialScale}
                 minScale={minScale}
                 maxScale={maxScale}
                 doubleClick={{mode:'reset'}}
                 disablePadding={true}
+                onZoom={handleZoom}
+                onPinching={handleZoom}
             >
                 {({ zoomIn, zoomOut }) => (
                     <>
                         <ZoomComponent
+                            scale={scale}
+                            minScale={minScale}
+                            maxScale={maxScale}
                             zoomIn={zoomIn}
                             zoomOut={zoomOut}
+                            handleZoom={handleZoom}
                         /> 
                         
                         <TransformComponent

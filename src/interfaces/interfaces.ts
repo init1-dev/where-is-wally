@@ -74,12 +74,12 @@ export interface LoadErrorProps {
 }
 
 export interface ZoomComponentProps {
-    // maxScale: number;
-    // minScale: number;
-    // scale: number;
-    // setScale: Dispatch<SetStateAction<number>>;
+    maxScale: number;
+    minScale: number;
+    scale: number;
     zoomIn: () => void;
     zoomOut: () => void;
+    handleZoom: () => void;
     resetTransform?: ()=> void;
 }
 
