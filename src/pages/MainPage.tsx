@@ -20,7 +20,30 @@ const MainPage = () => {
 
             <TextContainer>
                 <Paragraph>
-                    Esta aplicación es una maqueta inicial, aún en estado de desarrollo, basada en los libros <strong>"¿Dónde está Wally?</strong> de <strong>Martin Handford</strong> que tanto marcaron mi infancia.
+                    Esta aplicación es una maqueta inicial, aún en estado de desarrollo, basada en los libros&nbsp;
+
+                    <strong>
+                        "<a
+                            href="https://es.wikipedia.org/wiki/%C2%BFD%C3%B3nde_est%C3%A1_Wally%3F" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            ¿Dónde está Wally?
+                        </a>"
+                    </strong> 
+
+                    &nbsp;de&nbsp;
+
+                    <strong>
+                        <a 
+                            href="https://es.wikipedia.org/wiki/Martin_Handford" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            Martin Handford
+                        </a>
+                    </strong>
+                    &nbsp;que tanto marcaron mi infancia.
                 </Paragraph>
 
                 <Paragraph>
@@ -35,7 +58,7 @@ const MainPage = () => {
                         
                         <a 
                             href="https://github.com/init1-dev/where-is-wally"
-                            target="_black"
+                            target="_blank"
                             rel="noopener noreferrer"
                         >
                             github

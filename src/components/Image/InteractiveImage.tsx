@@ -18,7 +18,7 @@ const InteractiveImage = ({
     const imgRef = useRef<HTMLImageElement>(null);
 
     const mobile = window.innerWidth <= 768;
-    const minScale = mobile ? 0.6 : 1;
+    const minScale = mobile ? 0.6 : 0.8;
     const maxScale = 2;
     const initialScale = mobile ? minScale : 1;
 
