@@ -32,6 +32,11 @@ const BookView = () => {
     useEffect(() => {
         handleBookLoading(bookId);
     }, [bookId, navigate]);
+
+    const handleOpenScenario = (bookId: any, scenarioId: any) => {
+        navigate(`/book/${bookId}/${scenarioId}`);
+        document.documentElement.requestFullscreen();
+    }
     
     if (!book) {
         return <NotFoundComponent />
@@ -79,7 +84,7 @@ const BookView = () => {
                                         disabled={ !scenario.playable }
                                         onClick={ 
                                             scenario.playable
-                                                ? () => navigate(`/book/${bookId}/${scenario.id}`)
+                                                ? () => handleOpenScenario(bookId, scenario.id)
                                                 : undefined
                                         }
                                         scale={1.03}
