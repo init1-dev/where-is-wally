@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { InteractiveImageProps } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Image from "./Image";
-// import ZoomComponent from "./ZoomComponent";
-import { PanzoomObject } from "@panzoom/panzoom";
-import { checkAllFound, createPanzoom, handleSounds } from "../../utils/functionsModule";
+import ZoomComponent from "./ZoomComponent";
+import { checkAllFound, handleSounds } from "../../utils/functionsModule";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
 
 const InteractiveImage = ({
     image,
@@ -16,15 +16,13 @@ const InteractiveImage = ({
     const navigate = useNavigate();
     const isFirstRender = useRef(true);
     const imgRef = useRef<HTMLImageElement>(null);
-    const [panzoomElement, setPanzoomElement] = useState<PanzoomObject | null>(null);
-    const [_scale, setScale] = useState<number>(panzoomElement ? panzoomElement.getScale() : 1);
 
+    const mobile = window.innerWidth <= 768;
+    const minScale = mobile ? 0.6 : 1;
     const maxScale = 2;
-    const minScale = 0.6;
+    const initialScale = mobile ? minScale : 1;
 
-    useEffect(() => {
-        createPanzoom(imgRef, maxScale, minScale, setPanzoomElement, setScale);
-    }, []);
+    // const [scale, setScale] = useState<number>(initialScale);
 
     useEffect(() => {
         handleSounds(isFirstRender, checkAllFound, navigate, imageAreas);
@@ -32,21 +30,35 @@ const InteractiveImage = ({
 
     return (
         <ImageContainer>
-            <Image 
-                image={image}
-                imageAreas={imageAreas} 
-                setImageAreas={setImageAreas!}
-                imgRef={imgRef}
-                setFound={setFound}
-            />
-
-            {/* <ZoomComponent 
-                panzoom={panzoomElement} 
-                maxScale={maxScale} 
+            <TransformWrapper 
+                initialScale={initialScale}
                 minScale={minScale}
-                scale={scale} 
-                setScale={setScale}
-            /> */}
+                maxScale={maxScale}
+                doubleClick={{mode:'reset'}}
+                disablePadding={true}
+                limitToBounds={true}
+            >
+                {({ zoomIn, zoomOut }) => (
+                    <>
+                        <ZoomComponent
+                            zoomIn={zoomIn}
+                            zoomOut={zoomOut}
+                        /> 
+                        
+                        <TransformComponent
+                            wrapperStyle={{ maxWidth: "100%", maxHeight: "100vh" }}
+                        >
+                            <Image
+                                image={image}
+                                imageAreas={imageAreas}
+                                setImageAreas={setImageAreas!}
+                                imgRef={imgRef}
+                                setFound={setFound}
+                            />
+                        </TransformComponent>
+                    </>
+                )}
+            </TransformWrapper>
         </ImageContainer>
     );
 }

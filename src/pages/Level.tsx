@@ -16,7 +16,7 @@ const LevelComponent = () => {
     const { bookId, levelId } = useParams<{bookId: string, levelId: string}>();
     const [ imageAreas, setImageAreas ] = useState<Area[]>([]);
     const [ found, setFound ] = useState<number>(0);
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    // const [imageUrl, setImageUrl] = useState<string | null>(null);
     
     const navigate = useNavigate();
 
@@ -49,25 +49,31 @@ const LevelComponent = () => {
         navigate(`/book/${bookId}`, {replace:true});
     }
 
-    useEffect(() => {
-        const loadImage = async () => {
-            try {
-                const response = await fetch(currentScenario!.image);
+    // useEffect(() => {
+    //     const loadImage = async () => {
+    //         try {
+    //             const response = await fetch(currentScenario!.image);
 
-                if (!response.ok) {
-                    throw new Error('Failed to load image');
-                }
-                const blob = await response.blob();
-                setImageUrl(URL.createObjectURL(blob));
-            } catch (error) {
-                console.error('Error loading image:', error);
-            }
-        };
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to load image');
+    //             }
+    //             const blob = await response.blob();
+    //             setImageUrl(URL.createObjectURL(blob));
+    //         } catch (error) {
+    //             console.error('Error loading image:', error);
+    //         }
+    //     };
     
-        if (currentScenario && currentScenario.image) {
-            loadImage();
-        }
-    }, [currentScenario]);
+    //     if (currentScenario && currentScenario.image) {
+    //         loadImage();
+    //     }
+
+    //     return () => {
+    //         if(imageUrl) {
+    //             URL.revokeObjectURL(imageUrl);
+    //         }
+    //     };
+    // }, [currentScenario]);
     
 
     if (!book || !currentScenario) {
@@ -75,7 +81,7 @@ const LevelComponent = () => {
     }
 
     return (
-        imageUrl && imageAreas.length > 0
+        currentScenario && imageAreas.length > 0
             ?   <MainPageContainer>
                     <TextContainer>
                         <StyledCircleButton onClick={handleReturn}>
@@ -84,7 +90,7 @@ const LevelComponent = () => {
                     </TextContainer>
                 
                     <InteractiveImage 
-                        image={imageUrl}
+                        image={currentScenario.image}
                         imageAreas={imageAreas} 
                         setImageAreas={setImageAreas}
                         setFound={setFound}

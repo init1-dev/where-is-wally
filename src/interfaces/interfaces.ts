@@ -1,4 +1,3 @@
-import { PanzoomObject } from "@panzoom/panzoom";
 import { Dispatch, FormEvent, RefObject, SetStateAction } from "react";
 
 export interface Area {
@@ -75,11 +74,13 @@ export interface LoadErrorProps {
 }
 
 export interface ZoomComponentProps {
-    panzoom: PanzoomObject | null;
-    maxScale: number;
-    minScale: number;
-    scale: number;
-    setScale: Dispatch<SetStateAction<number>>;
+    // maxScale: number;
+    // minScale: number;
+    // scale: number;
+    // setScale: Dispatch<SetStateAction<number>>;
+    zoomIn: () => void;
+    zoomOut: () => void;
+    resetTransform?: ()=> void;
 }
 
 export interface ThemeButtonProps {

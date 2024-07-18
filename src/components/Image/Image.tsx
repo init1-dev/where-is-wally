@@ -1,6 +1,6 @@
 import { ImageProps } from '../../interfaces/interfaces';
-import Areas from './Areas';
 import styled from 'styled-components';
+import Areas from './Areas';
 
 const Image = ({
     image,
@@ -11,7 +11,7 @@ const Image = ({
 }: ImageProps) => {
     
     return (
-        <div style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
+        <>
             <StyledImage
                 ref={imgRef}
                 src={image}
@@ -21,15 +21,16 @@ const Image = ({
 
             <Areas
                 imageAreas={imageAreas}
-                setImageAreas={setImageAreas}
+                setImageAreas={setImageAreas!}
                 setFound={setFound}
             />
-        </div>
+        </>
     );
 };
 
 const StyledImage = styled.img`
     cursor: pointer !important;
+    pointer-events: auto !important;
 `;
 
 export default Image;
