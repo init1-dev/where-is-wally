@@ -36,7 +36,6 @@ const InteractiveImage = ({
                 maxScale={maxScale}
                 doubleClick={{mode:'reset'}}
                 disablePadding={true}
-                limitToBounds={true}
             >
                 {({ zoomIn, zoomOut }) => (
                     <>
