@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import styled from "styled-components";
-import { AreasProps } from "../../interfaces/interfaces";
 import { itemFound } from "../../utils/functionsModule";
+import { Area } from '../../interfaces/interfaces';
+
+interface AreasProps {
+    imageAreas: Area[];
+    setImageAreas: Dispatch<SetStateAction<Area[]>>;
+    setFound: Dispatch<SetStateAction<number>>;
+}
 
 const Areas = ({
     imageAreas,

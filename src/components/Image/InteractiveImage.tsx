@@ -1,11 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { InteractiveImageProps } from "../../interfaces/interfaces";
+import { Area } from "../../interfaces/interfaces";
 import { useNavigate } from "react-router-dom";
 import Image from "./Image";
 import ZoomComponent from "./ZoomComponent";
 import { checkAllFound, handleSounds } from "../../utils/functionsModule";
 import { ReactZoomPanPinchContentRef, TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+
+type ZoomDirection = 'in' | 'out';
+type ZoomFunc = (step: number) => void;
+
+interface InteractiveImageProps {
+    image: string;
+    imageAreas: Area[];
+    setImageAreas: Dispatch<SetStateAction<Area[]>> | undefined;
+    setFound: Dispatch<SetStateAction<number>>;
+}
 
 const InteractiveImage = ({
     image,
@@ -34,6 +44,16 @@ const InteractiveImage = ({
         setScale(currentScale!);
     };
 
+    const handleZoomBtn = (zoomFunc: ZoomFunc, operation: ZoomDirection, step = 0.3) => {
+        const operations = {
+            in: (scale: number) => scale + step,
+            out: (scale: number) => scale - step
+        };
+
+        setScale(prev => operations[operation](prev));
+        zoomFunc(step);
+    }
+
     return (
         <ImageContainer>
             <TransformWrapper 
@@ -52,9 +72,8 @@ const InteractiveImage = ({
                             scale={scale}
                             minScale={minScale}
                             maxScale={maxScale}
-                            zoomIn={zoomIn}
-                            zoomOut={zoomOut}
-                            handleZoom={handleZoom}
+                            zoomIn={() => handleZoomBtn(zoomIn, "in")}
+                            zoomOut={() => handleZoomBtn(zoomOut, "out")}
                         /> 
                         
                         <TransformComponent

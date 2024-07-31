@@ -1,10 +1,17 @@
 import styled from "styled-components";
-import { SideMenuProps } from "../../interfaces/interfaces";
 import { useState } from "react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { LuBookMarked } from "react-icons/lu";
 import { click } from "../../assets/sounds";
 import { FlexCenteredContainer, FlexContainer, H2, StyledCircleButton } from "../../styles/GeneralStyles";
+import { Area } from "../../interfaces/interfaces";
+
+interface SideMenuProps {
+    imageAreas: Area[];
+    PlaySound: (sound: string, volume?: number) => void;
+    levelName: string;
+    found: number;
+}
 
 const SideMenuComponent = ({
     imageAreas,
@@ -12,7 +19,7 @@ const SideMenuComponent = ({
     levelName,
     found
 }: SideMenuProps) => {
-    const [ isOpen, setIsOpen ] = useState(false);
+    const [ isOpen, setIsOpen ] = useState(true);
 
     const handleOpen = () => {
         setIsOpen(prev => !prev);

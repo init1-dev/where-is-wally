@@ -1,6 +1,15 @@
-import { ImageProps } from '../../interfaces/interfaces';
+import { Area } from '../../interfaces/interfaces';
 import styled from 'styled-components';
 import Areas from './Areas';
+import { Dispatch, RefObject, SetStateAction } from 'react';
+
+interface ImageProps {
+    image: string;
+    imageAreas: Area[];
+    setImageAreas: Dispatch<SetStateAction<Area[]>>;
+    imgRef: RefObject<HTMLImageElement>;
+    setFound: Dispatch<SetStateAction<number>>;
+}
 
 const Image = ({
     image,

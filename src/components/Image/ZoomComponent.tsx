@@ -1,37 +1,31 @@
 import styled from "styled-components";
 import { BsZoomIn, BsZoomOut } from "react-icons/bs";
-import { ZoomComponentProps } from "../../interfaces/interfaces";
+
+interface ZoomComponentProps {
+    scale: number;
+    zoomIn: () => void;
+    zoomOut: () => void;
+    maxScale: number;
+    minScale: number;
+}
 
 function ZoomComponent({
     scale,
     zoomIn,
     zoomOut,
     maxScale,
-    minScale,
-    handleZoom
-    // scale,
-    // setScale
+    minScale
 }: ZoomComponentProps) {
-
-    const handleZoomIn = () => {
-        handleZoom();
-        zoomIn();
-    };
-
-    const handleZoomOut = () => {
-        handleZoom();
-        zoomOut();
-    };
 
     return (
         <ZoomContainer>
-            <Button onClick={handleZoomIn} disabled={ scale >= maxScale } >
+            <Button onClick={zoomIn} disabled={ scale >= maxScale } >
                 <BsZoomIn />
             </Button>
 
             <StyledSeparator />
 
-            <Button onClick={handleZoomOut} disabled={ scale <= minScale } >
+            <Button onClick={zoomOut} disabled={ scale <= minScale } >
                 <BsZoomOut />
             </Button>
         </ZoomContainer>
